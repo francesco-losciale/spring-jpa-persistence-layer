@@ -1,4 +1,4 @@
-
+- set-up the spring application context
 - add logging using spring aop and method's profiling
 - write test unit
 - add paginator
