@@ -3,16 +3,21 @@ package commons.model.converter;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang.Validate;
+
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
-import org.springframework.expression.spel.support.ReflectionHelper;
 import org.springframework.stereotype.Component;
 
 import commons.model.bean.TransferMetadata;
 import commons.model.dto.ISimpleEntityDTO;
 import commons.model.entity.IBaseEntity;
 import commons.model.entity.ISimpleEntity;
+import commons.model.exception.ManagerException;
+import commons.model.transfer.Mapping;
 import commons.model.util.HibernateUtils;
-
+import commons.model.util.ManagerHelper;
+import commons.model.util.ReflectionHelper;
 @SuppressWarnings("unchecked")
 @Component
 @Scope(value = BeanDefinition.SCOPE_PROTOTYPE)

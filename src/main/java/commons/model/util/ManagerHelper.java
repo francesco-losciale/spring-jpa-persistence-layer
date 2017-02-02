@@ -6,21 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.expression.spel.support.ReflectionHelper;
 
+import commons.model.bean.EntityMapped;
 import commons.model.dto.IBaseDTO;
 import commons.model.dto.ILogicDeleteDTO;
 import commons.model.dto.ISimpleEntityDTO;
 import commons.model.entity.IBaseEntity;
 import commons.model.entity.LogicDeleteEntity;
 import commons.model.exception.ManagerException;
+import commons.model.transfer.Mapping;
 
 @SuppressWarnings("unchecked")
 public class ManagerHelper {

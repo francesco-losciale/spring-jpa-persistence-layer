@@ -12,9 +12,11 @@ import commons.model.bean.AllMetadata;
 import commons.model.bean.Metadata;
 import commons.model.bean.OperationMetadata;
 import commons.model.bean.TransferMetadata;
+import commons.model.converter.IEntityConverter;
 import commons.model.dto.ILogicDeleteDTO;
 import commons.model.dto.ISimpleEntityDTO;
 import commons.model.entity.IBaseEntity;
+import commons.model.entity.LogicDeleteEntity;
 import commons.model.exception.ManagerException;
 import commons.model.exception.NonUniqueResultException;
 import commons.model.expression.SimpleExpression;
@@ -24,10 +26,12 @@ import commons.model.operation.ICriteriaOperation;
 import commons.model.operation.IDeleteEntityOperation;
 import commons.model.operation.IEjbqlOperation;
 import commons.model.operation.ISaveEntityOperation;
+import commons.model.util.ManagerHelper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import commons.model.util.ReflectionHelper;
 
 public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBaseEntity> extends BasePersistenceManager implements IPersistenceEntityManager<T, E> {
 
@@ -191,18 +195,7 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	protected List<T> list(OperationMetadata metadata, boolean all) {
-
-		String query = "SELECT p FROM " + getPersistentClassEntity().getSimpleName() + " p order by id";
-
-		if (!all) {
-			Class<E> clsE = getPersistentClassEntity();
-			if (clsE != null && ReflectionHelper.isExtension(clsE, LogicDeleteEntity.class)) {
-				query = "SELECT p FROM " + getPersistentClassEntity().getSimpleName() + " p where dateDelete is null order by id";
-			}
-		}
-		SimpleExpression<String> expression = new SimpleExpression<String>(query, metadata);
-		List<E> list = ejbqlOperation.getList(expression);
-		return entity2Dto(list, new TransferMetadata());
+		throw new RuntimeException("not implemented yet");
 	}
 
 	public int count(OperationMetadata metadata) {
@@ -215,40 +208,15 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 
 	public int count(OperationMetadata metadata, boolean all) {
 
-		String query = "SELECT COUNT(p.id) FROM " + getPersistentClassEntity().getSimpleName() + " p";
-		if (!all) {
-			Class<IBaseEntity> clsE = ManagerHelper.getMapped(getPersistentClassEntity());
-			if (clsE != null && ReflectionHelper.isExtension(clsE, LogicDeleteEntity.class)) {
-				query = "SELECT COUNT(p.id) FROM " + getPersistentClassEntity().getSimpleName() + " p where dateDelete is null";
-			}
-		}
-		SimpleExpression<String> expression = new SimpleExpression<String>(query, metadata);
-
-		Number number = null;
-		try {
-			number = ejbqlOperation.getNumber(expression);
-		} catch (NonUniqueResultException e) {
-			throw new ManagerException(e);
-		}
-		return number.intValue();
+		throw new RuntimeException("not implemented yet");
 	}
 
 	public List<T> findByExample(T o, Metadata... metadata) {
-		DetachedCriteria criteria = getCriteriaByExample(o);
-		E e = getEntityInstance(o.getClass());
-		if (ReflectionHelper.isExtension(e.getClass(), LogicDeleteEntity.class)) {
-			criteria.add(Restrictions.isNull(ILogicDeleteDTO.DATE_DELETE));
-		}
-		return find(criteria, dtoClass, metadata);
+		throw new RuntimeException("not implemented yet");
 	}
 
 	public List<T> findByExample(T o, String[] orders, Metadata... metadata) {
-		DetachedCriteria criteria = getCriteriaByExample(o, orders);
-		E e = getEntityInstance(o.getClass());
-		if (ReflectionHelper.isExtension(e.getClass(), LogicDeleteEntity.class)) {
-			criteria.add(Restrictions.isNull(ILogicDeleteDTO.DATE_DELETE));
-		}
-		return find(criteria, dtoClass, metadata);
+		throw new RuntimeException("not implemented yet");
 	}
 
 	public List<T> findByExample(T o, Class<T> _class, Metadata... metadata) {
@@ -281,43 +249,15 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	protected List<T> find(DetachedCriteria criteria, Class<T> _class, Metadata... metadata) {
-
-		AllMetadata allMetadata = new AllMetadata(metadata);
-		OperationMetadata operationMetadata = allMetadata.getOperationMetadata();
-		TransferMetadata mappingMetadata = allMetadata.getTransferMetadata();
-
-		CriteriaExpression<T> expression = new CriteriaExpression<T>(criteria, _class, operationMetadata, mappingMetadata);
-
-		List<E> list = criteriaOperation.find(expression.getCriteria(), allMetadata);
-
-		return entity2Dto(list, mappingMetadata);
+		throw new RuntimeException("not implemented yet");
 	}
 
 	protected List<T> find(DetachedCriteria criteria, Class<T> _class, AllMetadata allMetadata) {
-
-		OperationMetadata operationMetadata = allMetadata.getOperationMetadata();
-		TransferMetadata mappingMetadata = allMetadata.getTransferMetadata();
-
-		CriteriaExpression<T> expression = new CriteriaExpression<T>(criteria, _class, operationMetadata, mappingMetadata);
-
-		List<E> list = criteriaOperation.find(expression.getCriteria(), allMetadata);
-
-		return entity2Dto(list, mappingMetadata);
+		throw new RuntimeException("not implemented yet");
 	}
 
 	protected E getEntityInstance(Class<? extends ISimpleEntityDTO> _class) {
-
-		EntityMapped entityMapped = _class.getAnnotation(EntityMapped.class);
-		String value = entityMapped.value();
-
-		E entity = null;
-		try {
-			entity = (E) ReflectionHelper.newInstance(Class.forName(value));
-		} catch (ClassNotFoundException e) {
-			throw new ManagerException(e);
-		}
-
-		return entity;
+		throw new RuntimeException("not implemented yet");
 	}
 
 	protected E getEntityInstance() {
@@ -388,21 +328,4 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return (List<T>) converter.entityToDto(list, getDtoClass(), mappingMetadata == null ? TransferMetadata.DEFAULT : mappingMetadata);
 	}
 
-	protected ListPaginator<T> entity2Dto(EntityListPaginator<E> entityList, TransferMetadata mappingMetadata) {
-
-		if (entityList == null) return null;
-
-		int size = entityList.size();
-
-		List<T> list = (List<T>) converter.entityToDto(entityList, getDtoClass(), mappingMetadata == null ? TransferMetadata.DEFAULT : mappingMetadata);
-
-		ListPaginator<T> listPaginator = new ListPaginator<T>(size);
-		if (list != null) for (T item : list) {
-			listPaginator.add(item);
-		}
-
-		listPaginator.setPaginator(entityList.getPaginator());
-
-		return listPaginator;
-	}
 }
