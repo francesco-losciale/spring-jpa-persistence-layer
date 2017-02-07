@@ -7,3 +7,11 @@
 - ILogicDeleteDTO e ILogicDelete per rispettivamente i dto e le entity non sono il massimo, non sono molto leggibili.
   Quando si vuole una eliminazione fisica piuttosto che logica può essere complicato capire dov'è che bisogna intervenire.
   Trova un'altra soluzione.
+
+
+
+docs:
+
+https://thinkinginobjects.com/2012/08/26/dont-use-dao-use-repository/
+best-practices-orm.pdf
+schema-persistence.pdf
