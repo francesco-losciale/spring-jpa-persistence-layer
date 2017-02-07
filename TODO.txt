@@ -2,6 +2,7 @@
 - add logging using spring aop and method's profiling
 - write test unit
 - add paginator
+- leggi best-practices-orm.pdf, NB: gli interceptor per scrivere i dati di auditing
 - implementala utilizzando il cascade all
 - ILogicDeleteDTO e ILogicDelete per rispettivamente i dto e le entity non sono il massimo, non sono molto leggibili.
   Quando si vuole una eliminazione fisica piuttosto che logica può essere complicato capire dov'è che bisogna intervenire.
