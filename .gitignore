@@ -1,0 +1,15 @@
+/*.classpath
+/*.project
+/.settings/*.prefs
+/target/classes/commons/model/bean/*.class
+/target/classes/commons/model/converter/*.class
+/target/classes/commons/model/dto/*.class
+/target/classes/commons/model/entity/*.class
+/target/classes/commons/model/exception/*.class
+/target/classes/commons/model/expression/*.class
+/target/classes/commons/model/operation/*.class
+/target/classes/commons/model/util/*.class
+/target/classes/manager/*.class
+/target/classes/manager/cache/*.class
+/target/classes/persistence/*.class
+/target/test-classes/manager/*.class

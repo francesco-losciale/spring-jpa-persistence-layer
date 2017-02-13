@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:driverClassName="oracle.jdbc.OracleDriver"
+        p:url="jdbc:oracle:thin:@192.168.0.87:1521:FISCALONE"
+        p:username="FO_ENEL_COLL"
+        p:password="FO_ENEL_COLL" /> 
+
+</beans>
