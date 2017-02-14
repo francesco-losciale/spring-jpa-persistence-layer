@@ -20,7 +20,7 @@ public class DeleteEntityOperation<E extends BaseEntity> extends BaseEntityOpera
 		super();
 	}
 
-	private E completa(E entity, OperationMetadata operationMetadata) throws OperationException {
+	private E beforeDelete(E entity, OperationMetadata operationMetadata) throws OperationException {
 
 		String user = operationMetadata.getUsername();
 		Date now = operationMetadata.getDateCalendar();
@@ -44,10 +44,9 @@ public class DeleteEntityOperation<E extends BaseEntity> extends BaseEntityOpera
 
 	@SuppressWarnings("unchecked")
 	public E delete(E entity, OperationMetadata operationMetadata) throws OperationException {
-		evaluate(entity, operationMetadata);
 		try {
 
-			E delete = (E) getSession().merge(completa(entity, operationMetadata));
+			E delete = (E) getSession().merge(beforeDelete(entity, operationMetadata));
 
 			if (!(delete instanceof LogicDeleteEntity)) getSession().delete(delete);
 			else getSession().update(delete);

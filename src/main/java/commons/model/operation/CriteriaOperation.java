@@ -25,8 +25,6 @@ public class CriteriaOperation<E extends BaseEntity> extends BaseReadEntityOpera
 	}
 
 	public List<E> find(DetachedCriteria detachedCriteria) {
-		super.evaluate(detachedCriteria);
-
 		List<E> list = null;
 		try {
 			Criteria criteria = detachedCriteria.getExecutableCriteria(getSession());

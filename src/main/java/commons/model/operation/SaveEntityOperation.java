@@ -19,7 +19,7 @@ public class SaveEntityOperation<E extends BaseEntity> extends BaseEntityOperato
 		super();
 	}
 
-	private E completa(E entity, OperationMetadata operationMetadata) {
+	private E beforeSave(E entity, OperationMetadata operationMetadata) {
 
 		String user = operationMetadata.getUsername();
 		Date now = operationMetadata.getDateCalendar();
@@ -38,14 +38,12 @@ public class SaveEntityOperation<E extends BaseEntity> extends BaseEntityOperato
 	}
 
 	public E save(E ent, OperationMetadata operationMetadata) throws OperationException {
-		evaluate(ent, operationMetadata);
-		E entity = completa(ent, operationMetadata);
+		E entity = beforeSave(ent, operationMetadata);
 		try {
 			if (entity.getId() == null) getSession().saveOrUpdate(entity);
 			else {
 				entity = (E) getSession().merge(entity);
 			}
-			//getSession().flush();
 		} catch (Exception e) {
 			throw new OperationException(e);
 		}

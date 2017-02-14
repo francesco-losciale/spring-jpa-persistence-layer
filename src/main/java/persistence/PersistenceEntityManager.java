@@ -1,6 +1,10 @@
 package persistence;
 
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
@@ -14,25 +18,15 @@ import commons.model.bean.Metadata;
 import commons.model.bean.OperationMetadata;
 import commons.model.bean.TransferMetadata;
 import commons.model.converter.IEntityConverter;
-import commons.model.dto.ILogicDeleteDTO;
 import commons.model.dto.ISimpleEntityDTO;
 import commons.model.entity.IBaseEntity;
-import commons.model.entity.LogicDeleteEntity;
 import commons.model.exception.ManagerException;
 import commons.model.exception.NonUniqueResultException;
-import commons.model.expression.SimpleExpression;
 import commons.model.operation.CriteriaOperation;
-import commons.model.operation.EjbqlOperation;
 import commons.model.operation.ICriteriaOperation;
 import commons.model.operation.IDeleteEntityOperation;
-import commons.model.operation.IEjbqlOperation;
 import commons.model.operation.ISaveEntityOperation;
 import commons.model.util.ManagerHelper;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.List;
-import commons.model.util.ReflectionHelper;
 
 public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBaseEntity> extends BasePersistenceManager implements IPersistenceEntityManager<T, E> {
 
@@ -49,14 +43,10 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	@Qualifier(CriteriaOperation.NAME)
 	private ICriteriaOperation<E> criteriaOperation;
 
-//	@Autowired
-//	@Qualifier(EjbqlOperation.NAME)
-//	private IEjbqlOperation<E> ejbqlOperation;
-
 	@Autowired
 	private IEntityConverter<T, E> converter;
 
-	public PersistenceEntityManager(SessionFactory sessionFactory, Class<T> dtoClass, Class<E> entityClass, ISaveEntityOperation<E> saveOperation, IDeleteEntityOperation<E> deleteOperation, ICriteriaOperation<E> criteriaOperation, IEjbqlOperation<E> ejbqlOperation, IEntityConverter<T, E> converter) {
+	public PersistenceEntityManager(SessionFactory sessionFactory, Class<T> dtoClass, Class<E> entityClass, ISaveEntityOperation<E> saveOperation, IDeleteEntityOperation<E> deleteOperation, ICriteriaOperation<E> criteriaOperation, IEntityConverter<T, E> converter) {
 		this();
 		super.setSessionFactory(sessionFactory);
 		this.dtoClass = dtoClass;
@@ -64,7 +54,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		this.saveOperation = saveOperation;
 		this.deleteOperation = deleteOperation;
 		this.criteriaOperation = criteriaOperation;
-//		this.ejbqlOperation = ejbqlOperation;
 		this.converter = converter;
 	}
 
@@ -120,20 +109,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		Class<T> dto = getPersistentClass();
 		return (Class<E>) ManagerHelper.getMapped(dto);
 	}
-
-//	protected E readById(Long id, OperationMetadata metadata) {
-//		String query = "SELECT p FROM " + getPersistentClassEntity().getSimpleName() + " p where id='" + id + "'";
-//
-//		SimpleExpression<String> expression = new SimpleExpression<String>(query, metadata);
-//		E entity = null;
-//		try {
-//			entity = ejbqlOperation.getSingle(expression);
-//		} catch (NonUniqueResultException e) {
-//			throw new ManagerException(e);
-//		}
-//
-//		return entity;
-//	}
 
 	public boolean exists(Long id, OperationMetadata metadata) {
 
@@ -215,7 +190,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	public int count(OperationMetadata metadata, boolean all) {
-
 		throw new RuntimeException("not implemented yet");
 	}
 
@@ -286,30 +260,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return getEntityInstance(dtoClass);
 	}
 
-//	public List<T> simpleQuery(String hsql, OperationMetadata metadata) {
-//
-//		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
-//		return entity2Dto(ejbqlOperation.getList(expression), new TransferMetadata());
-//	}
-
-//	@SuppressWarnings("unchecked")
-//	protected ISimpleEntityDTO getEntityDtoById(Long id, Class<? extends ISimpleEntityDTO> target, OperationMetadata metadata, IEntityConverter converter) {
-//		String entityName = getEntityInstance(target).getClass().getSimpleName();
-//
-//		String hsql = "select e from " + entityName + " e where e.id = " + id;
-//
-//		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
-//
-//		E entity = null;
-//		try {
-//			entity = ejbqlOperation.getSingle(expression);
-//		} catch (NonUniqueResultException e) {
-//			throw new ManagerException(e);
-//		}
-//
-//		return converter.entityToDto(entity, target, null);
-//	}
-
 	public Class<T> getDtoClass() {
 		return dtoClass;
 	}
@@ -325,10 +275,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	public ICriteriaOperation<E> getCriteriaOperation() {
 		return criteriaOperation;
 	}
-
-//	public IEjbqlOperation<E> getEjbqlOperation() {
-//		return ejbqlOperation;
-//	}
 
 	public IEntityConverter<T, E> getConverter() {
 		return converter;
