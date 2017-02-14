@@ -1,4 +1,4 @@
-- tidy up the component scan package root - set-up the spring application context
+- tidy up EntityConverter.java
 - add logging using spring aop and method's profiling
 - write test unit
 - add paginator
