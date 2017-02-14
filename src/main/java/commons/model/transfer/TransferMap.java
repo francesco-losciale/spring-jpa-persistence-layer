@@ -40,7 +40,7 @@ public class TransferMap extends AbstractTransfer {
 			return mapTo;
 		}
 
-		final Type generic = plusTo.getGenerica();
+		final Type generic = plusTo.getGeneric();
 		Class<?> cTo = null;
 		if (generic == null) {
 			cTo = REFLECTION_HELPER.wrappaGenerics(classTo);

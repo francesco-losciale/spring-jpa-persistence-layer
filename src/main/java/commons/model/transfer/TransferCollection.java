@@ -40,7 +40,7 @@ public class TransferCollection extends AbstractTransfer {
 			return itemsTo;
 		}
 
-		Type generic = plusTo.getGenerica();
+		Type generic = plusTo.getGeneric();
 		Class<?> cTo = null;
 		if (generic == null) {
 			cTo = REFLECTION_HELPER.wrappaGenerics(classTo);

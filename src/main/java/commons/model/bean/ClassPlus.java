@@ -6,20 +6,20 @@ public class ClassPlus {
 
 	private Class<?> classe;
 
-	private Type generica;
+	private Type generic;
 
 	public ClassPlus(final Class<?> cls) {
 		this(cls, null);
 	}
 
-	public ClassPlus(final Class<?> cls, final Type generica) {
+	public ClassPlus(final Class<?> cls, final Type generic) {
 		this.classe = cls;
-		this.generica = generica;
+		this.generic = generic;
 	}
 
-	public ClassPlus(final Class<?> cls, final Class<?> generica) {
+	public ClassPlus(final Class<?> cls, final Class<?> Generic) {
 		this.classe = cls;
-		this.generica = generica;
+		this.generic = Generic;
 	}
 
 	public Class<?> getClasse() {
@@ -30,11 +30,11 @@ public class ClassPlus {
 		this.classe = classe;
 	}
 
-	public Type getGenerica() {
-		return generica;
+	public Type getGeneric() {
+		return generic;
 	}
 
-	public void setGenerica(Class<?> generica) {
-		this.generica = generica;
+	public void setGeneric(Class<?> Generic) {
+		this.generic = Generic;
 	}
 }
