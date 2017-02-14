@@ -26,16 +26,6 @@ public abstract class BaseEntity implements IBaseEntity {
 		super();
 	}
 
-//    @Transient
-////    public abstract Long getId();
-//    public Long getId(){
-//       return this.id;
-//    }
-//
-////    @Transient
-////    public abstract void setId(Long id);
-//    public  void setId(Long id){}
-
 	@Column(name = "USER_MODIFY", updatable = true)
 	public String getUserModify() {
 		return userModify;
@@ -85,18 +75,15 @@ public abstract class BaseEntity implements IBaseEntity {
 	@Override
 	public int compareTo(Object obj) {
 		return this.compareTo(obj);
-		//throw new RuntimeException("not implemented yet");
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		return this.equals(obj);
-		//throw new RuntimeException("not implemented yet");
 	}
 
 	@Override
 	public int hashCode() {
 		return super.hashCode();
-		//throw new RuntimeException("not implemented yet");
 	}
 }

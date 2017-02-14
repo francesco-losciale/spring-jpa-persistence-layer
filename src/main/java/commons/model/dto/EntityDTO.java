@@ -50,6 +50,6 @@ public class EntityDTO extends BaseDTO implements ISimpleEntityDTO {
 	}
 
 	public int hashCode() {
-		throw new RuntimeException("not implemented yet");
+		return super.hashCode();
 	}
 }

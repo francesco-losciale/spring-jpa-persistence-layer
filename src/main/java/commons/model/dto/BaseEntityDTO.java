@@ -74,11 +74,11 @@ public class BaseEntityDTO extends EntityDTO implements IBaseEntityDTO {
 
 	@Override
 	public boolean equals(Object obj) {
-		throw new RuntimeException("not implemented yet");
+		return super.equals(obj);
 	}
 
 	@Override
 	public int hashCode() {
-		throw new RuntimeException("not implemented yet");
+		return super.hashCode();
 	}
 }

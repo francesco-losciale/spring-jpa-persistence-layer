@@ -17,7 +17,6 @@ public class TransferObject extends AbstractTransfer {
 		if (super.getMapped().containsKey(from)) {
 			return super.getMapped().get(from);
 		}
-
 		if (super.getMapping().containsKey(from)) {
 			return null;
 		}

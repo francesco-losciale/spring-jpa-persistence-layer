@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,11 +47,22 @@ public class AppTest extends TestCase {
 	}
 
 	@Test
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
+	@Rollback(false)
 	public void testApp() {
 		assertTrue(true);
 		
 		TestDTO test = testManager.read(1L, metadata);
 		assertTrue(test.getId() == 1L);
+		
+		TestDTO newTest = new TestDTO();
+		newTest = testManager.create(newTest, metadata);
+		newTest = testManager.read(newTest.getId(), metadata);
+		assertTrue(newTest != null);
+		
+		testManager.delete(newTest, metadata);
+		newTest = testManager.read(newTest.getId(), metadata);
+		assertTrue(newTest == null);
+		
 	}
 }
