@@ -1,9 +1,9 @@
+- make CASCADE_ALL work out
 - tidy up EntityConverter.java
 - add logging using spring aop and method's profiling
 - write test unit
 - add paginator
 - read best-practices-orm.pdf, NB: the interceptors could be use to write auditing data (date_insert, user, etc)
-- make CASCADE_ALL works
 - ILogicDeleteDTO and ILogicDelete are not so readable. Find out another solution.
 
 
