@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import commons.model.bean.AllMetadata;
+import commons.model.bean.EntityMapped;
 import commons.model.bean.Metadata;
 import commons.model.bean.OperationMetadata;
 import commons.model.bean.TransferMetadata;
@@ -48,9 +49,9 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	@Qualifier(CriteriaOperation.NAME)
 	private ICriteriaOperation<E> criteriaOperation;
 
-	@Autowired
-	@Qualifier(EjbqlOperation.NAME)
-	private IEjbqlOperation<E> ejbqlOperation;
+//	@Autowired
+//	@Qualifier(EjbqlOperation.NAME)
+//	private IEjbqlOperation<E> ejbqlOperation;
 
 	@Autowired
 	private IEntityConverter<T, E> converter;
@@ -63,7 +64,7 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		this.saveOperation = saveOperation;
 		this.deleteOperation = deleteOperation;
 		this.criteriaOperation = criteriaOperation;
-		this.ejbqlOperation = ejbqlOperation;
+//		this.ejbqlOperation = ejbqlOperation;
 		this.converter = converter;
 	}
 
@@ -120,19 +121,19 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return (Class<E>) ManagerHelper.getMapped(dto);
 	}
 
-	protected E readById(Long id, OperationMetadata metadata) {
-		String query = "SELECT p FROM " + getPersistentClassEntity().getSimpleName() + " p where id='" + id + "'";
-
-		SimpleExpression<String> expression = new SimpleExpression<String>(query, metadata);
-		E entity = null;
-		try {
-			entity = ejbqlOperation.getSingle(expression);
-		} catch (NonUniqueResultException e) {
-			throw new ManagerException(e);
-		}
-
-		return entity;
-	}
+//	protected E readById(Long id, OperationMetadata metadata) {
+//		String query = "SELECT p FROM " + getPersistentClassEntity().getSimpleName() + " p where id='" + id + "'";
+//
+//		SimpleExpression<String> expression = new SimpleExpression<String>(query, metadata);
+//		E entity = null;
+//		try {
+//			entity = ejbqlOperation.getSingle(expression);
+//		} catch (NonUniqueResultException e) {
+//			throw new ManagerException(e);
+//		}
+//
+//		return entity;
+//	}
 
 	public boolean exists(Long id, OperationMetadata metadata) {
 
@@ -164,8 +165,15 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	public T read(Long id, OperationMetadata metadata) {
-		E e = readById(id, metadata);
-		return entity2Dto(e, TransferMetadata.DEFAULT);
+		DetachedCriteria criteria = getCriteria();
+		criteria.add(Restrictions.eq("id",id));		
+		E entity = null;
+		try {
+			entity = criteriaOperation.getSingle(criteria);
+		} catch (NonUniqueResultException e) {
+			throw new ManagerException(e);
+		}
+		return entity2Dto(entity, TransferMetadata.DEFAULT);
 	}
 
 	public T create(T dto, OperationMetadata metadata) {
@@ -256,37 +264,51 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		throw new RuntimeException("not implemented yet");
 	}
 
+	@SuppressWarnings("unchecked")
 	protected E getEntityInstance(Class<? extends ISimpleEntityDTO> _class) {
-		throw new RuntimeException("not implemented yet");
+		E entity = null;
+		EntityMapped entityMapped = _class.getAnnotation(EntityMapped.class);
+		if (entityMapped != null) {
+			try {
+				entity = (E) Class.forName(entityMapped.value()).newInstance();
+			} catch (ClassNotFoundException e) {
+				throw new ManagerException(e);
+			} catch (InstantiationException e) {
+				throw new ManagerException(e);
+			} catch (IllegalAccessException e) {
+				throw new ManagerException(e);
+			}
+		}
+		return entity;		
 	}
 
 	protected E getEntityInstance() {
 		return getEntityInstance(dtoClass);
 	}
 
-	public List<T> simpleQuery(String hsql, OperationMetadata metadata) {
+//	public List<T> simpleQuery(String hsql, OperationMetadata metadata) {
+//
+//		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
+//		return entity2Dto(ejbqlOperation.getList(expression), new TransferMetadata());
+//	}
 
-		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
-		return entity2Dto(ejbqlOperation.getList(expression), new TransferMetadata());
-	}
-
-	@SuppressWarnings("unchecked")
-	protected ISimpleEntityDTO getEntityDtoById(Long id, Class<? extends ISimpleEntityDTO> target, OperationMetadata metadata, IEntityConverter converter) {
-		String entityName = getEntityInstance(target).getClass().getSimpleName();
-
-		String hsql = "select e from " + entityName + " e where e.id = " + id;
-
-		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
-
-		E entity = null;
-		try {
-			entity = ejbqlOperation.getSingle(expression);
-		} catch (NonUniqueResultException e) {
-			throw new ManagerException(e);
-		}
-
-		return converter.entityToDto(entity, target, null);
-	}
+//	@SuppressWarnings("unchecked")
+//	protected ISimpleEntityDTO getEntityDtoById(Long id, Class<? extends ISimpleEntityDTO> target, OperationMetadata metadata, IEntityConverter converter) {
+//		String entityName = getEntityInstance(target).getClass().getSimpleName();
+//
+//		String hsql = "select e from " + entityName + " e where e.id = " + id;
+//
+//		SimpleExpression<String> expression = new SimpleExpression<String>(hsql, metadata);
+//
+//		E entity = null;
+//		try {
+//			entity = ejbqlOperation.getSingle(expression);
+//		} catch (NonUniqueResultException e) {
+//			throw new ManagerException(e);
+//		}
+//
+//		return converter.entityToDto(entity, target, null);
+//	}
 
 	public Class<T> getDtoClass() {
 		return dtoClass;
@@ -304,9 +326,9 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return criteriaOperation;
 	}
 
-	public IEjbqlOperation<E> getEjbqlOperation() {
-		return ejbqlOperation;
-	}
+//	public IEjbqlOperation<E> getEjbqlOperation() {
+//		return ejbqlOperation;
+//	}
 
 	public IEntityConverter<T, E> getConverter() {
 		return converter;

@@ -3,9 +3,9 @@ package commons.model.operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import commons.cache.ApplicationMemory;
+import commons.cache.IThreadCache;
 import commons.model.exception.OperationException;
-import manager.cache.ApplicationMemory;
-import manager.cache.IThreadCache;
 
 public abstract class BaseOperation<Entity> {
 

@@ -1,4 +1,4 @@
-package manager.cache;
+package commons.cache;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

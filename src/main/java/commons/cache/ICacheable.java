@@ -1,4 +1,4 @@
-package manager.cache;
+package commons.cache;
 
 import java.io.Serializable;
 

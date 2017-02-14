@@ -1,7 +1,10 @@
 package com.dto;
 
-import commons.model.dto.LogicDeleteDTO;
+import commons.model.bean.EntityMapped;
+import commons.model.dto.BaseEntityDTO;
 
-public class TestDTO extends LogicDeleteDTO {
+@EntityMapped(value = "com.entity.TestEntity")
+public class TestDTO extends BaseEntityDTO {
+	private static final long serialVersionUID = 1L;
 
 }

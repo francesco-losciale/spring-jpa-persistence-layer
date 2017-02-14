@@ -1,13 +1,19 @@
 package com.main.test;
 
+import java.util.Locale;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.dto.TestDTO;
 import com.manager.ITestManager;
 
+import commons.model.bean.OperationMetadata;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -20,6 +26,8 @@ public class AppTest extends TestCase {
 		
 	@Autowired 
 	private ITestManager testManager;
+
+	OperationMetadata metadata = new OperationMetadata("test",Locale.getDefault());
 	
 	/**
 	 * Create the test case
@@ -38,7 +46,11 @@ public class AppTest extends TestCase {
 	}
 
 	@Test
+	@Transactional
 	public void testApp() {
 		assertTrue(true);
+		
+		TestDTO test = testManager.read(1L, metadata);
+		assertTrue(test.getId() == 1L);
 	}
 }

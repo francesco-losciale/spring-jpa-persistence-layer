@@ -1,21 +1,27 @@
 package com.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import commons.model.entity.BaseEntity;
 
 @Entity
+@Table(name="TEST")
 public class TestEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
-	@Override
+	private Long id;
+	
+	@Id
+	@Column(name="ID")
 	public Long getId() {
-		throw new RuntimeException("not implemented yet");
+		return this.id;
 	}
 
-	@Override
 	public void setId(Long id) {
-		throw new RuntimeException("not implemented yet");
+		this.id = id;
 	}
 
 }

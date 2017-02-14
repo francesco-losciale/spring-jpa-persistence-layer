@@ -3,8 +3,8 @@ package commons.model.bean;
 import java.util.Date;
 import java.util.Locale;
 
+import commons.cache.ICacheable;
 import commons.model.dto.OperationMetadataDTO;
-import manager.cache.ICacheable;
 
 @SuppressWarnings("serial")
 public class OperationMetadata extends OperationMetadataDTO implements ICacheable, Comparable<OperationMetadata>, Metadata, Cloneable {

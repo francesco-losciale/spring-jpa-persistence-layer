@@ -10,7 +10,7 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
         p:driverClassName="oracle.jdbc.OracleDriver"
         p:url="jdbc:oracle:thin:@192.168.0.87:1521:FISCALONE"
-        p:username="FO_ENEL_COLL"
-        p:password="FO_ENEL_COLL" /> 
+        p:username="FO_ENEL"
+        p:password="FO_ENEL" /> 
 
 </beans>

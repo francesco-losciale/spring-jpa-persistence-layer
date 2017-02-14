@@ -82,18 +82,21 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.version = version;
 	}
 
-	@SuppressWarnings("unchecked")
-	public int compareTo(Object arg0) {
-		throw new RuntimeException("not implemented yet");
+	@Override
+	public int compareTo(Object obj) {
+		return this.compareTo(obj);
+		//throw new RuntimeException("not implemented yet");
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		throw new RuntimeException("not implemented yet");
+		return this.equals(obj);
+		//throw new RuntimeException("not implemented yet");
 	}
 
 	@Override
 	public int hashCode() {
-		throw new RuntimeException("not implemented yet");
+		return super.hashCode();
+		//throw new RuntimeException("not implemented yet");
 	}
 }

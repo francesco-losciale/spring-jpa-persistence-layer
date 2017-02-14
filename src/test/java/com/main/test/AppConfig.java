@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 @Configuration
-@ComponentScan(basePackages = {"com.manager"})
-@ImportResource({"classpath:context_sviluppo.xml", "classpath:hibernate.xml"})
+@ComponentScan(basePackages = {"com.manager","commons"})
+@ImportResource({"classpath:persistence-beans.xml", "classpath:hibernate-beans.xml"})
 public class AppConfig {
 
 }
