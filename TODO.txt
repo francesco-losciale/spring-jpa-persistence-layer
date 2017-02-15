@@ -1,4 +1,4 @@
-- make CASCADE_ALL work out
+- when you create and entity, the auditing data in all the child ones is missing - SaveEntityOperation.beforeSave should be called on child entity too
 - tidy up EntityConverter.java
 - add logging using spring aop and method's profiling
 - write test unit

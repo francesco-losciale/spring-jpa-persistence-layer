@@ -1,5 +1,7 @@
 package com.main.test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
@@ -11,7 +13,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dto.TestCollectionDTO;
 import com.dto.TestDTO;
+import com.manager.ITestCollectionManager;
 import com.manager.ITestManager;
 
 import commons.model.bean.OperationMetadata;
@@ -27,6 +31,9 @@ public class AppTest extends TestCase {
 		
 	@Autowired 
 	private ITestManager testManager;
+	
+	@Autowired
+	private ITestCollectionManager testCollectionManager;
 
 	OperationMetadata metadata = new OperationMetadata("test",Locale.getDefault());
 	
@@ -46,14 +53,10 @@ public class AppTest extends TestCase {
 		return new TestSuite(AppTest.class);
 	}
 
-	@Test
+	//@Test
 	@Transactional(propagation = Propagation.REQUIRED)
-	@Rollback(false)
 	public void testApp() {
 		assertTrue(true);
-		
-		TestDTO test = testManager.read(1L, metadata);
-		assertTrue(test.getId() == 1L);
 		
 		TestDTO newTest = new TestDTO();
 		newTest = testManager.create(newTest, metadata);
@@ -62,7 +65,22 @@ public class AppTest extends TestCase {
 		
 		testManager.delete(newTest, metadata);
 		newTest = testManager.read(newTest.getId(), metadata);
-		assertTrue(newTest == null);
+		assertTrue(newTest == null);		
+	}
+	
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED)
+	@Rollback(false)
+	public void testCollection() {
 		
+		TestDTO testDTO = new TestDTO();
+		TestCollectionDTO testCollectionDTO = new TestCollectionDTO();
+		testCollectionDTO.setReleaseName("releaseName");
+		List<TestDTO> listTest = new ArrayList<TestDTO>();
+		testDTO.setTestCollectionDTO(testCollectionDTO);
+		listTest.add(testDTO);
+		testCollectionDTO.setListTest(listTest);
+		testCollectionDTO = testCollectionManager.create(testCollectionDTO, metadata);
+				
 	}
 }

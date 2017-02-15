@@ -7,4 +7,13 @@ import commons.model.dto.BaseEntityDTO;
 public class TestDTO extends BaseEntityDTO {
 	private static final long serialVersionUID = 1L;
 
+	private TestCollectionDTO testCollection;
+
+	public TestCollectionDTO getTestCollection() {
+		return testCollection;
+	}
+	public void setTestCollectionDTO(TestCollectionDTO testCollection) {
+		this.testCollection = testCollection;
+	}
+		
 }
