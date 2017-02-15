@@ -20,7 +20,7 @@ public class BasePersistenceManager {
 	}
 
 	public Session getCurrentSession() {
-		if (this.sessionFactory == null) throw new ManagerException("Hibernate Session is close");
+		if (this.sessionFactory == null) throw new ManagerException("Hibernate Session is closed");
 		return sessionFactory.getCurrentSession();
 	}
 }
