@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dto.TestCollectionDTO;
 import com.dto.TestDTO;
+import com.dto.UserDetailsDTO;
 import com.manager.ITestCollectionManager;
 import com.manager.ITestManager;
 
@@ -34,7 +35,7 @@ public class AppTest extends TestCase {
 	
 	@Autowired
 	private ITestCollectionManager testCollectionManager;
-
+	
 	OperationMetadata metadata = new OperationMetadata("test",Locale.getDefault());
 	
 	/**
@@ -44,6 +45,10 @@ public class AppTest extends TestCase {
 	 *            name of the test case
 	 */
 	public AppTest() {
+		AppInfo.setUserDetails(new UserDetailsDTO());
+		AppInfo.getUserDetails().setFirstName("Francesco");
+		AppInfo.getUserDetails().setLastName("Losciale");
+		AppInfo.getUserDetails().setUsername("flosciale");
 	}
 
 	/**
