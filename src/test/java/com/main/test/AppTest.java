@@ -81,10 +81,7 @@ public class AppTest extends TestCase {
 		TestDTO testDTO = new TestDTO();
 		TestCollectionDTO testCollectionDTO = new TestCollectionDTO();
 		testCollectionDTO.setReleaseName("releaseName");
-		List<TestDTO> listTest = new ArrayList<TestDTO>();
-		testDTO.setTestCollectionDTO(testCollectionDTO);
-		listTest.add(testDTO);
-		testCollectionDTO.setListTest(listTest);
+		testCollectionDTO.addTestDTO(testDTO);
 		testCollectionDTO = testCollectionManager.create(testCollectionDTO, metadata);
 				
 	}

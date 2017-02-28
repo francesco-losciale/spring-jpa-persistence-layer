@@ -1,5 +1,6 @@
 package com.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -47,6 +48,16 @@ public class TestCollectionEntity extends BaseEntity {
 	public void setListTest(List<TestEntity> listTest) {
 		this.listTest = listTest;
 	}
+	
+	public void addTest(TestEntity testEntity) {
+		if (this.listTest == null) {
+			this.listTest = new ArrayList<>();
+		}
+		this.listTest.add(testEntity);
+		testEntity.setTestCollection(this);
+	}
+	
+	
 	
 	
 }

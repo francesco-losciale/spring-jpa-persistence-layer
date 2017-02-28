@@ -31,7 +31,7 @@ public class TestEntity extends BaseEntity {
 	}
 
 	@ManyToOne
-	@JoinColumn(name="ID_TEST_COLLECTION", nullable=true)
+	@JoinColumn(name="ID_TEST_COLLECTION", nullable=true, insertable = true)
 	public TestCollectionEntity getTestCollection() {
 		return testCollection;
 	}

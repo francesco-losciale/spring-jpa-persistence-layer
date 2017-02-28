@@ -24,7 +24,7 @@
 			</props>
 		</property>
 		<property name="entityInterceptor">
-            <bean class="interceptor.AuditingInterceptor"></bean>
+            <bean class="interceptor.WriteAuditingDataInterceptor"></bean>
         </property>
 	</bean>
 
