@@ -1,4 +1,4 @@
-
+- id_test_colleciton missing in the child record (test)
 - when you create and entity, the auditing data in all the child ones is missing - SaveEntityOperation.beforeSave should be called on child entity too
   to find out: 1. integrate spring security with user details accessible from anywhere in the code
                2. think about what is the best option between envers or hibernate interceptors
