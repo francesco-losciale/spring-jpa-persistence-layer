@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import commons.model.entity.BaseEntity;
@@ -20,7 +21,8 @@ public class TestEntity extends BaseEntity {
 	private TestCollectionEntity testCollection;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@SequenceGenerator(name="SQ_TEST_GENERATOR", sequenceName="SQ_TEST")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SQ_TEST_GENERATOR")
 	@Column(name="ID_TEST")
 	public Long getId() {
 		return this.id;

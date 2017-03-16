@@ -10,12 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import commons.model.entity.BaseEntity;
 
 @Entity
 @Table(name="TEST_COLLECTION")
+@SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
 public class TestCollectionEntity extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +26,8 @@ public class TestCollectionEntity extends BaseEntity {
 	private List<TestEntity> listTest;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)	
+	@SequenceGenerator(name="SQ_TEST_COLLECTION_GENERATOR", sequenceName="SQ_TEST_COLLECTION")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SQ_TEST_COLLECTION_GENERATOR")
 	@Column(name="ID_TEST_COLLECTION")
 	public Long getId() {
 		return id;

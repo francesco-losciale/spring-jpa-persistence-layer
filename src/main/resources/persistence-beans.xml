@@ -6,11 +6,11 @@
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-        p:driverClassName="oracle.jdbc.OracleDriver"
-        p:url="jdbc:oracle:thin:@192.168.0.87:1521:FISCALONE"
-        p:username="FO_ENEL"
-        p:password="FO_ENEL" /> 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="org.hsqldb.util.DatabaseManager" />
+	    <property name="url" value="jdbc:hsqldb:database/sandboxDb" />
+	    <property name="username" value="SA" />
+	    <property name="password" value="" />
+	</bean>        
 
 </beans>
