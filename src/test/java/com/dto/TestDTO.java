@@ -12,7 +12,7 @@ public class TestDTO extends BaseEntityDTO {
 	public TestCollectionDTO getTestCollection() {
 		return testCollection;
 	}
-	public void setTestCollectionDTO(TestCollectionDTO testCollection) {
+	public void setTestCollection(TestCollectionDTO testCollection) {
 		this.testCollection = testCollection;
 	}		
 }

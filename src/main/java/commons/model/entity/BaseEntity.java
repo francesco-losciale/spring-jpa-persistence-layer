@@ -79,7 +79,7 @@ public abstract class BaseEntity implements IBaseEntity {
 
 	@Override
 	public boolean equals(Object obj) {
-		return this.equals(obj);
+		return super.equals(obj);
 	}
 
 	@Override

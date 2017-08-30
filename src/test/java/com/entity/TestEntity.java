@@ -2,6 +2,7 @@ package com.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,8 +33,8 @@ public class TestEntity extends BaseEntity {
 		this.id = id;
 	}
 
-	@ManyToOne
-	@JoinColumn(name="ID_TEST_COLLECTION", nullable=true, insertable = true)
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="ID_TEST_COLLECTION", nullable=false)
 	public TestCollectionEntity getTestCollection() {
 		return testCollection;
 	}

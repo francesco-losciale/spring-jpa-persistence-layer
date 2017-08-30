@@ -92,7 +92,7 @@ public abstract class AbstractTransfer implements ITransfer {
 				continue;
 			}
 
-			lista.add(key);
+			lista.add(key); 
 		}
 		return lista;
 	}
@@ -179,6 +179,6 @@ public abstract class AbstractTransfer implements ITransfer {
 	}
 
 	protected boolean verificaToMany(Class<?> classFrom) {
-		return classFrom.getName().contains("hibernate") || classFrom.getName().contains("javassist");
+		return false; //return classFrom.getName().contains("hibernate") || classFrom.getName().contains("javassist");
 	}
 }

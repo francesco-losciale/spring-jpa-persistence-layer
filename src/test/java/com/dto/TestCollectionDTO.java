@@ -1,7 +1,8 @@
 package com.dto;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import commons.model.bean.EntityMapped;
 import commons.model.dto.BaseEntityDTO;
@@ -10,21 +11,21 @@ import commons.model.dto.BaseEntityDTO;
 public class TestCollectionDTO extends BaseEntityDTO {
 	private static final long serialVersionUID = 1L;
 
-	private List<TestDTO> listTest;
+	private Set<TestDTO> listTest;
 	private String releaseName;
 	
-	public List<TestDTO> getListTest() {
+	public Set<TestDTO> getListTest() {
 		return listTest;
 	}
-	public void setListTest(List<TestDTO> listTest) {
+	public void setListTest(Set<TestDTO> listTest) {
 		this.listTest = listTest;
 	}
-	public void addTestDTO(TestDTO test) {
+	public void addTest(TestDTO test) {
 		if (this.listTest == null) {
-			this.listTest = new ArrayList<TestDTO>();
+			this.listTest = new HashSet<TestDTO>();
 		}
 		this.listTest.add(test);
-		test.setTestCollectionDTO(this);
+		test.setTestCollection(this);
 	}
 	public String getReleaseName() {
 		return releaseName;

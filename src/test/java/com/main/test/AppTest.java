@@ -1,6 +1,5 @@
 package com.main.test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,32 +56,78 @@ public class AppTest extends TestCase {
 	public static TestSuite suite() {
 		return new TestSuite(AppTest.class);
 	}
-
-	//@Test
+	
+	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void testApp() {
-		assertTrue(true);
+	@Rollback(false)
+	public void testPopulateListCollection() {
 		
-		TestDTO newTest = new TestDTO();
-		newTest = testManager.create(newTest, metadata);
-		newTest = testManager.read(newTest.getId(), metadata);
-		assertTrue(newTest != null);
+		// controllo create
 		
-		testManager.delete(newTest, metadata);
-		newTest = testManager.read(newTest.getId(), metadata);
-		assertTrue(newTest == null);		
+		TestCollectionDTO testCollectionDTO = newTestCollectionDTO("releaseName3");
+		
+		testCollectionDTO = testCollectionManager.create(testCollectionDTO, metadata);
+				
+		TestDTO testDTO = newTestDTO(); // entity 1
+		addTestDTO(testDTO, testCollectionDTO);
+		testDTO = testManager.create(testDTO, metadata); 
+		
+		assertTrue(testDTO != null);
+		assertTrue(testDTO.getTestCollection() != null && testDTO.getTestCollection().getListTest().size() == 1);
+		
+		TestDTO test2DTO = newTestDTO(); // entity 2
+		addTestDTO(test2DTO, testCollectionDTO);
+		test2DTO = testManager.create(test2DTO, metadata);
+		
+		assertTrue(test2DTO != null);
+		assertTrue(test2DTO.getTestCollection() != null && test2DTO.getTestCollection().getListTest().size() == 2);
+				
 	}
 	
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Rollback(false)
-	public void testCollection() {
+	public void testCheckAfterPopulate() {
+						
+		List<TestCollectionDTO> listTestCollectionDTO = testCollectionManager.list(metadata);
 		
-		TestDTO testDTO = new TestDTO();
+		if (listTestCollectionDTO.size() > 0) {
+			
+			Long idCollection = listTestCollectionDTO.get(0).getId();
+		
+			TestCollectionDTO testCollectionDTO = testCollectionManager.read(idCollection, metadata); 
+			TestDTO[] testDtoArray = testCollectionDTO.getListTest().toArray(new TestDTO[testCollectionDTO.getListTest().size()]);
+			
+			int count = testCollectionDTO.getListTest().size();
+			int countRemoved = 0;
+			if (testDtoArray.length > 0) {
+				for (int i = 0; i < testDtoArray.length; i++) {
+					if (i % 2 == 0) {
+						testCollectionDTO.getListTest().remove(testDtoArray[i]); // orphan removal
+						countRemoved++;
+					}
+				}
+			}
+			
+			testCollectionDTO = testCollectionManager.update(testCollectionDTO, metadata);
+			assertTrue(testCollectionDTO.getListTest().size() == count - countRemoved);
+		} else {
+			fail("no record data");
+		}
+	}	
+	
+	private static TestCollectionDTO newTestCollectionDTO(String releaseName) {
 		TestCollectionDTO testCollectionDTO = new TestCollectionDTO();
-		testCollectionDTO.setReleaseName("releaseName");
-		testCollectionDTO.addTestDTO(testDTO);
-		testCollectionDTO = testCollectionManager.create(testCollectionDTO, metadata);
-				
+		testCollectionDTO.setReleaseName(releaseName);
+		return testCollectionDTO;
+	}
+	
+	private static TestDTO newTestDTO() {
+		return new TestDTO();
+	}
+	
+	private static void addTestDTO(TestDTO testDTO, TestCollectionDTO testCollectionDTO) {
+		testDTO.setTestCollection(testCollectionDTO);
+		testCollectionDTO.addTest(testDTO);
 	}
 }

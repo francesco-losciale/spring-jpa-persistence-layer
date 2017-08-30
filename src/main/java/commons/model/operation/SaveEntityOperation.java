@@ -37,8 +37,8 @@ public class SaveEntityOperation<E extends BaseEntity> extends BaseEntityOperato
 		return entity;
 	}
 
-	public E save(E ent, OperationMetadata operationMetadata) throws OperationException {
-		E entity = beforeSave(ent, operationMetadata);
+	public E save(E entity, OperationMetadata operationMetadata) throws OperationException {
+		//E entity = beforeSave(ent, operationMetadata);
 		try {
 			if (entity.getId() == null) getSession().saveOrUpdate(entity);
 			else {

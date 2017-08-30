@@ -3,6 +3,7 @@ package persistence;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -140,19 +141,13 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	public T read(Long id, OperationMetadata metadata) {
-		DetachedCriteria criteria = getCriteria();
-		criteria.add(Restrictions.eq("id",id));		
-		E entity = null;
-		try {
-			entity = criteriaOperation.getSingle(criteria);
-		} catch (NonUniqueResultException e) {
-			throw new ManagerException(e);
-		}
-		return entity2Dto(entity, TransferMetadata.DEFAULT);
+					
+		E readEntity = getCurrentSession().get(getEntityClass(), id); //find, get , load
+		return entity2Dto(readEntity, TransferMetadata.DEFAULT);
 	}
 
 	public T create(T dto, OperationMetadata metadata) {
-		dto.setId(null);
+		//dto.setId(null);
 		E entityDetach = dto2Entity(dto);
 		E entity = saveOperation.save(entityDetach, metadata);
 		return entity2Dto(entity, TransferMetadata.DEFAULT);
@@ -177,8 +172,19 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return list(metadata, true);
 	}
 
+	@SuppressWarnings("unchecked")
 	protected List<T> list(OperationMetadata metadata, boolean all) {
-		throw new RuntimeException("not implemented yet");
+		DetachedCriteria criteria = getCriteria();
+		List<E> list = criteria.getExecutableCriteria(getCurrentSession()).list();
+		List<T> listResult = new ArrayList<T>();
+		for (E entity : list) {
+			T dto = entity2Dto(entity, TransferMetadata.DEFAULT);
+			listResult.add(dto);
+		}
+		if (all) {
+			throw new RuntimeException("not implemented yet");
+		}
+		return listResult;
 	}
 
 	public int count(OperationMetadata metadata) {
