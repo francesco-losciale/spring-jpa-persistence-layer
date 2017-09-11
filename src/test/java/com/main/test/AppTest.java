@@ -56,7 +56,7 @@ public class AppTest extends TestCase {
 	public static TestSuite suite() {
 		return new TestSuite(AppTest.class);
 	}
-	
+		
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
 	@Rollback(false)
@@ -82,7 +82,9 @@ public class AppTest extends TestCase {
 		assertTrue(test2DTO != null);
 		assertTrue(test2DTO.getTestCollection() != null && test2DTO.getTestCollection().getListTest().size() == 2);
 				
+		// commit ...
 	}
+	
 	
 	@Test
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -105,16 +107,36 @@ public class AppTest extends TestCase {
 					if (i % 2 == 0) {
 						testCollectionDTO.getListTest().remove(testDtoArray[i]); // orphan removal
 						countRemoved++;
-					}
+					} 
 				}
 			}
 			
-			testCollectionDTO = testCollectionManager.update(testCollectionDTO, metadata);
+			testCollectionDTO = testCollectionManager.update(testCollectionDTO, metadata); 
 			assertTrue(testCollectionDTO.getListTest().size() == count - countRemoved);
+			
 		} else {
 			fail("no record data");
 		}
 	}	
+	
+	@Test
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Rollback(false)
+	public void testUpdatingData() {
+		
+		List<TestCollectionDTO> listTestCollectionDTO = testCollectionManager.list(metadata);
+		if (listTestCollectionDTO.size() > 0) {
+			
+			for (TestCollectionDTO testCollectionDTO : listTestCollectionDTO) {				
+				testCollectionDTO.setReleaseName(testCollectionDTO.getReleaseName()+"_upd");
+				testCollectionDTO = testCollectionManager.update(testCollectionDTO, metadata); 				
+			}			
+			
+		} else {
+			fail("no record data");
+		}
+		
+	}
 	
 	private static TestCollectionDTO newTestCollectionDTO(String releaseName) {
 		TestCollectionDTO testCollectionDTO = new TestCollectionDTO();

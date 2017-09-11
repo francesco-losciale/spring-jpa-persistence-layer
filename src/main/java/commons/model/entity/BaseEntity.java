@@ -7,6 +7,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import commons.model.custom.annotation.Audit;
+
+@Audit()
 @MappedSuperclass
 public abstract class BaseEntity implements IBaseEntity {
 
@@ -26,7 +29,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		super();
 	}
 
-	@Column(name = "USER_MODIFY", updatable = true)
+	@Column(name = "USER_MODIFY")
 	public String getUserModify() {
 		return userModify;
 	}
@@ -35,7 +38,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.userModify = userModify;
 	}
 
-	@Column(name = "DATE_INSERT", updatable = false)
+	@Column(name = "DATE_INSERT")
 	public Date getDateInsert() {
 		return dateInsert;
 	}
@@ -44,7 +47,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.dateInsert = dateInsert;
 	}
 
-	@Column(name = "DATE_MODIFY", updatable = true)
+	@Column(name = "DATE_MODIFY")
 	public Date getDateModify() {
 		return dateModify;
 	}
@@ -53,7 +56,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.dateModify = dateModify;
 	}
 
-	@Column(name = "USER_INSERT", updatable = false)
+	@Column(name = "USER_INSERT")
 	public String getUserInsert() {
 		return userInsert;
 	}

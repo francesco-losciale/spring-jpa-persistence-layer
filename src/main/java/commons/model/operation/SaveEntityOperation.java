@@ -40,7 +40,8 @@ public class SaveEntityOperation<E extends BaseEntity> extends BaseEntityOperato
 	public E save(E entity, OperationMetadata operationMetadata) throws OperationException {
 		//E entity = beforeSave(ent, operationMetadata);
 		try {
-			if (entity.getId() == null) getSession().saveOrUpdate(entity);
+			if (entity.getId() == null) 
+				getSession().saveOrUpdate(entity);
 			else {
 				entity = (E) getSession().merge(entity);
 			}
