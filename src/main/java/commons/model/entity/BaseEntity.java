@@ -7,9 +7,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import commons.model.custom.annotation.Audit;
+import commons.model.annotation.Audit;
 
-@Audit()
+@Audit
 @MappedSuperclass
 public abstract class BaseEntity implements IBaseEntity {
 

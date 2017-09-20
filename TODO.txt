@@ -1,5 +1,9 @@
 
-- resume this todo: // TODO verifica che la data_mod sia not null
+- spring security must be used only at business logic level, stop to try to integrate SecurityContext and look for another solution
+  about audit data writing (through the hibernate filter).
+
+- logic delete must be handled such as updates or insert (ie. audit data)
+
 
 - use 2nd level cache
 

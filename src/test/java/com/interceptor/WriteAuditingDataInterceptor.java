@@ -1,4 +1,4 @@
-package interceptor;
+package com.interceptor;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -7,8 +7,9 @@ import java.util.Calendar;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 
-import commons.model.custom.annotation.Audit;
-import commons.model.entity.BaseEntity;
+import com.main.test.AppInfo;
+
+import commons.model.annotation.Audit;
 
 public class WriteAuditingDataInterceptor extends EmptyInterceptor {
 	private static final long serialVersionUID = 1L;
@@ -20,19 +21,16 @@ public class WriteAuditingDataInterceptor extends EmptyInterceptor {
 							String[] propertyNames, 
 							Type[] types) {
 		if (entity.getClass().isAnnotationPresent(Audit.class)) {
-			if (((BaseEntity)entity).getDateInsert() == null) {
+			switch (entity.getClass().getAnnotation(Audit.class).authenticationType()) {
+			case USER_AUTHENTICATION:
 				state[Arrays.asList(propertyNames).indexOf("dateInsert")] = Calendar.getInstance().getTime();
-				state[Arrays.asList(propertyNames).indexOf("userInsert")] = "user_insert";	
-			} else {
-				state[Arrays.asList(propertyNames).indexOf("dateModify")] = Calendar.getInstance().getTime();
-				state[Arrays.asList(propertyNames).indexOf("userModify")] = "user_modify";
-			}			
-			return true;
+				state[Arrays.asList(propertyNames).indexOf("userInsert")] = AppInfo.getUserDetails().getUsername();	
+				return true;	
+			default:
+			}
 		}
 		return false;		
 	}
-	
-	
 		
 	@Override
 	public boolean onFlushDirty(
@@ -44,14 +42,13 @@ public class WriteAuditingDataInterceptor extends EmptyInterceptor {
 			Type[] types) {
 		
 		if (entity.getClass().isAnnotationPresent(Audit.class)) {
-			if (((BaseEntity)entity).getDateInsert() == null) {
-				currentState[Arrays.asList(propertyNames).indexOf("dateInsert")] = Calendar.getInstance().getTime();
-				currentState[Arrays.asList(propertyNames).indexOf("userInsert")] = "user_insert";	
-			} else {
+			switch (entity.getClass().getAnnotation(Audit.class).authenticationType()) {
+			case USER_AUTHENTICATION:
 				currentState[Arrays.asList(propertyNames).indexOf("dateModify")] = Calendar.getInstance().getTime();
-				currentState[Arrays.asList(propertyNames).indexOf("userModify")] = "user_modify";
-			}			
-			return true;
+				currentState[Arrays.asList(propertyNames).indexOf("userModify")] = AppInfo.getUserDetails().getUsername();
+				return true;
+			default:
+			}
 		}
 		return false;		
 	}

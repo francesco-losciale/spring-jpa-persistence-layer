@@ -17,7 +17,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.manager,com.entity,commons" />
+		<property name="packagesToScan" value="com.manager,com.interceptor,com.entity,commons" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>	
@@ -28,7 +28,7 @@
 			</props>
 		</property>
 		<property name="entityInterceptor">
-            <bean class="interceptor.WriteAuditingDataInterceptor"></bean>
+            <bean class="com.interceptor.WriteAuditingDataInterceptor"></bean>
         </property>
 	</bean>
 

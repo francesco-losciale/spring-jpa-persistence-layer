@@ -1,11 +1,18 @@
 package com.main.test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -48,7 +55,12 @@ public class AppTest extends TestCase {
 		AppInfo.getUserDetails().setFirstName("Francesco");
 		AppInfo.getUserDetails().setLastName("Losciale");
 		AppInfo.getUserDetails().setUsername("flosciale");
+
+        User user = new User("flosciale", "flosciale", Arrays.asList(new SimpleGrantedAuthority("ROLE_TEST2")));
+        Authentication auth = new TestingAuthenticationToken(user, "password", "ROLE_TEST2");
+        SecurityContextHolder.getContext().setAuthentication(auth);
 	}
+	
 
 	/**
 	 * @return the suite of tests being tested

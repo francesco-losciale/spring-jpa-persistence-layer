@@ -1,4 +1,4 @@
-package commons.model.custom.annotation;
+package commons.model.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -11,11 +11,12 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface Audit {
 	
-	public enum AuditDataSource {
-		USER_SESSION,
-		SYSTEM_SESSION,
+	public enum AuthenticationType {
+		USER_AUTHENTICATION,
+		SYSTEM_AUTHENTICATION,
+		BATCH_AUTHENTICATION,
 		DEFAULT
 	};
 
-	AuditDataSource auditDataSource() default AuditDataSource.DEFAULT;
+	AuthenticationType authenticationType() default AuthenticationType.USER_AUTHENTICATION;
 }

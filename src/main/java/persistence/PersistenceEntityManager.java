@@ -12,6 +12,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.annotation.Secured;
 
 import commons.model.bean.AllMetadata;
 import commons.model.bean.EntityMapped;
@@ -146,6 +147,8 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 		return entity2Dto(readEntity, TransferMetadata.DEFAULT);
 	}
 
+
+	@Secured({"ROLE_TEST"})
 	public T create(T dto, OperationMetadata metadata) {
 		//dto.setId(null);
 		E entityDetach = dto2Entity(dto);
