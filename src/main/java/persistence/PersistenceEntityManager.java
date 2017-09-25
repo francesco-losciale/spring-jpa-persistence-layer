@@ -148,7 +148,7 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 
-	@Secured({"ROLE_TEST"})
+	
 	public T create(T dto, OperationMetadata metadata) {
 		//dto.setId(null);
 		E entityDetach = dto2Entity(dto);

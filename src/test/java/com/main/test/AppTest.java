@@ -78,6 +78,7 @@ public class AppTest extends TestCase {
 		
 		TestCollectionDTO testCollectionDTO = newTestCollectionDTO("releaseName3");
 		
+		//@Secured({"ROLE_TEST"}) <-- must be set upon create definition 
 		testCollectionDTO = testCollectionManager.create(testCollectionDTO, metadata);
 				
 		TestDTO testDTO = newTestDTO(); // entity 1
