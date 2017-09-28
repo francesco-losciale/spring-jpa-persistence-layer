@@ -1,11 +1,11 @@
-package com.interceptor;
+package persistence.hibernate;
 
 import java.io.Serializable;
 
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 
-public class ExampleInterceptor extends EmptyInterceptor {
+public class ExampleHibernateInterceptor extends EmptyInterceptor {
 	private static final long serialVersionUID = 1L;
 
 	@Override
