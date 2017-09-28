@@ -1,4 +1,5 @@
-package com.main.test;
+package main;
+
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.context.SecurityContext;
