@@ -13,3 +13,4 @@
 /target/classes/manager/cache/*.class
 /target/classes/persistence/*.class
 /target/test-classes/manager/*.class
+/target/
