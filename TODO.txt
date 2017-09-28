@@ -1,8 +1,7 @@
 
+- DeleteEntityOperation - implement new logical delete
+
 - try to create from scratch your own PersistenceEntityManager tidier than the old one 
-
-
-- logic delete must be handled such as updates or insert (ie. audit data)
 
 
 - use 2nd level cache
