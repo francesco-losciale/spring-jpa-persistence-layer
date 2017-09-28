@@ -3,14 +3,20 @@ package commons.model.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import commons.model.annotation.Audit;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Audit
+
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity implements IBaseEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -29,15 +35,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		super();
 	}
 
-	@Column(name = "USER_MODIFY")
-	public String getUserModify() {
-		return userModify;
-	}
-
-	public void setUserModify(String userModify) {
-		this.userModify = userModify;
-	}
-
+	@CreatedDate
 	@Column(name = "DATE_INSERT")
 	public Date getDateInsert() {
 		return dateInsert;
@@ -47,6 +45,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.dateInsert = dateInsert;
 	}
 
+	@LastModifiedDate
 	@Column(name = "DATE_MODIFY")
 	public Date getDateModify() {
 		return dateModify;
@@ -56,6 +55,7 @@ public abstract class BaseEntity implements IBaseEntity {
 		this.dateModify = dateModify;
 	}
 
+	@CreatedBy
 	@Column(name = "USER_INSERT")
 	public String getUserInsert() {
 		return userInsert;
@@ -63,6 +63,16 @@ public abstract class BaseEntity implements IBaseEntity {
 
 	public void setUserInsert(String userInsert) {
 		this.userInsert = userInsert;
+	}
+	
+	@LastModifiedBy
+	@Column(name = "USER_MODIFY")
+	public String getUserModify() {
+		return userModify;
+	}
+
+	public void setUserModify(String userModify) {
+		this.userModify = userModify;
 	}
 
 	@Version

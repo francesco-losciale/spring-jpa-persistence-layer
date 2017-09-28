@@ -23,8 +23,6 @@ public interface IPersistenceEntityManager<T extends ISimpleEntityDTO, E extends
 
 	public int count(OperationMetadata metadata);
 
-//	public List<T> simpleQuery(String hsql, OperationMetadata metadata);
-
 	public List<T> findByExample(T entity, Metadata... metadata);
 
 	public List<T> findByExample(T entity, String[] orders, Metadata... metadata);

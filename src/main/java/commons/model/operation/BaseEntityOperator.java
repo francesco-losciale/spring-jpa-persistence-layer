@@ -1,25 +1,27 @@
 package commons.model.operation;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import commons.model.entity.BaseEntity;
 
 abstract class BaseEntityOperator<E extends BaseEntity> extends BaseOperation<E> {
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @PersistenceContext(unitName = "jpaUnit", type = PersistenceContextType.EXTENDED)
+    private EntityManager entityManager;
 
-	public BaseEntityOperator() {
-		super();
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
-	protected Session getSession() {
-		return sessionFactory.getCurrentSession();
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
-
-	protected SessionFactory getSessionFactory() {
-		return sessionFactory;
+    
+	public Session getSession() {
+		return getEntityManager().unwrap(Session.class); // TODO decouple jpa from hibernate
 	}
 }

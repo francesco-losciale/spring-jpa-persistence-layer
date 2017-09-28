@@ -7,7 +7,6 @@ import java.util.Locale;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dto.TestCollectionDTO;
 import com.dto.TestDTO;
-import com.dto.UserDetailsDTO;
 import com.manager.ITestCollectionManager;
 import com.manager.ITestManager;
 
@@ -29,9 +27,7 @@ import commons.model.bean.OperationMetadata;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Unit test for simple App.
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfig.class })
 public class AppTest extends TestCase {
@@ -51,10 +47,6 @@ public class AppTest extends TestCase {
 	 *            name of the test case
 	 */
 	public AppTest() {
-		AppInfo.setUserDetails(new UserDetailsDTO());
-		AppInfo.getUserDetails().setFirstName("Francesco");
-		AppInfo.getUserDetails().setLastName("Losciale");
-		AppInfo.getUserDetails().setUsername("flosciale");
 
         User user = new User("flosciale", "flosciale", Arrays.asList(new SimpleGrantedAuthority("ROLE_TEST2")));
         Authentication auth = new TestingAuthenticationToken(user, "password", "ROLE_TEST2");
@@ -124,6 +116,9 @@ public class AppTest extends TestCase {
 				}
 			}
 			
+			//TODO: the entity that's being updated is detached as a result of the dto-to-entity conversion
+			//      but shouldn't be needed to update explicitly the entity, because it should be managed at the end JTA commit
+			//TODO: try to remove this line, could be unnecessary
 			testCollectionDTO = testCollectionManager.update(testCollectionDTO, metadata); 
 			assertTrue(testCollectionDTO.getListTest().size() == count - countRemoved);
 			
@@ -133,7 +128,7 @@ public class AppTest extends TestCase {
 	}	
 	
 	@Test
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Rollback(false)
 	public void testUpdatingData() {
 		

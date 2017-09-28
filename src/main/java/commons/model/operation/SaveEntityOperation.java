@@ -1,8 +1,7 @@
 package commons.model.operation;
 
-import java.util.Date;
+import javax.persistence.EntityManager;
 
-import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import commons.model.bean.OperationMetadata;
@@ -19,40 +18,18 @@ public class SaveEntityOperation<E extends BaseEntity> extends BaseEntityOperato
 		super();
 	}
 
-	private E beforeSave(E entity, OperationMetadata operationMetadata) {
-
-		String user = operationMetadata.getUsername();
-		Date now = operationMetadata.getDateCalendar();
-
-		entity.setUserModify(user);
-		if (entity.getUserInsert() == null) {
-			entity.setUserInsert(user);
-		}
-
-		entity.setDateModify(now);
-		if (entity.getDateInsert() == null) {
-			entity.setDateInsert(now);
-		}
-
-		return entity;
-	}
-
 	public E save(E entity, OperationMetadata operationMetadata) throws OperationException {
-		//E entity = beforeSave(ent, operationMetadata);
-		try {
+		EntityManager em = getEntityManager();
+		try {		
 			if (entity.getId() == null) 
-				getSession().saveOrUpdate(entity);
+				em.persist(entity);
 			else {
-				entity = (E) getSession().merge(entity);
+				entity = em.merge(entity);
 			}
 		} catch (Exception e) {
 			throw new OperationException(e);
-		}
-
+		} 
 		return entity;
 	}
 
-	public Session getSession() {
-		return super.getSession();
-	}
 }

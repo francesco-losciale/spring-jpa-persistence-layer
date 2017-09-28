@@ -1,26 +1,25 @@
 package persistence;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
-import commons.model.exception.ManagerException;
+import org.hibernate.Session;
 
 public class BasePersistenceManager {
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
+	
+    @PersistenceContext(unitName = "jpaUnit", type = PersistenceContextType.TRANSACTION)
+    private EntityManager entityManager;
+	
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
-
-	public Session getCurrentSession() {
-		if (this.sessionFactory == null) throw new ManagerException("Hibernate Session is closed");
-		return sessionFactory.getCurrentSession();
+    
+	public Session getSession() {
+		return getEntityManager().unwrap(Session.class); // TODO decouple jpa from hibernate
 	}
 }

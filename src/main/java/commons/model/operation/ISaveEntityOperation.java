@@ -10,5 +10,4 @@ public interface ISaveEntityOperation<E extends IBaseEntity> {
 
 	public E save(E entity, OperationMetadata operationMetadata) throws OperationException;
 
-	public Session getSession();
 }

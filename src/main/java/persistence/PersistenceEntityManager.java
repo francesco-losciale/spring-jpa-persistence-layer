@@ -12,7 +12,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.access.annotation.Secured;
 
 import commons.model.bean.AllMetadata;
 import commons.model.bean.EntityMapped;
@@ -35,6 +34,8 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	private Class<T> dtoClass;
 	private Class<E> entityClass;
 
+	
+	
 	@Autowired
 	private ISaveEntityOperation<E> saveOperation;
 
@@ -50,7 +51,6 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 
 	public PersistenceEntityManager(SessionFactory sessionFactory, Class<T> dtoClass, Class<E> entityClass, ISaveEntityOperation<E> saveOperation, IDeleteEntityOperation<E> deleteOperation, ICriteriaOperation<E> criteriaOperation, IEntityConverter<T, E> converter) {
 		this();
-		super.setSessionFactory(sessionFactory);
 		this.dtoClass = dtoClass;
 		this.entityClass = entityClass;
 		this.saveOperation = saveOperation;
@@ -142,8 +142,8 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 	}
 
 	public T read(Long id, OperationMetadata metadata) {
-					
-		E readEntity = getCurrentSession().get(getEntityClass(), id); //find, get , load
+
+		E readEntity = getEntityManager().find(getEntityClass(), id);
 		return entity2Dto(readEntity, TransferMetadata.DEFAULT);
 	}
 
@@ -177,8 +177,9 @@ public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBas
 
 	@SuppressWarnings("unchecked")
 	protected List<T> list(OperationMetadata metadata, boolean all) {
+				
 		DetachedCriteria criteria = getCriteria();
-		List<E> list = criteria.getExecutableCriteria(getCurrentSession()).list();
+		List<E> list = criteria.getExecutableCriteria(getSession()).list();
 		List<T> listResult = new ArrayList<T>();
 		for (E entity : list) {
 			T dto = entity2Dto(entity, TransferMetadata.DEFAULT);
