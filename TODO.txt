@@ -1,6 +1,6 @@
 
-- spring security must be used only at business logic level, stop to try to integrate SecurityContext and look for another solution
-  about audit data writing (through the hibernate filter).
+- try to create from scratch your own PersistenceEntityManager tidier than the old one 
+
 
 - logic delete must be handled such as updates or insert (ie. audit data)
 
