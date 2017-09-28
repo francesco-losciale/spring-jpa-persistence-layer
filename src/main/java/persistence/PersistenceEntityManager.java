@@ -13,21 +13,21 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import commons.model.bean.AllMetadata;
-import commons.model.bean.EntityMapped;
-import commons.model.bean.Metadata;
-import commons.model.bean.OperationMetadata;
-import commons.model.bean.TransferMetadata;
-import commons.model.converter.IEntityConverter;
-import commons.model.dto.ISimpleEntityDTO;
-import commons.model.entity.IBaseEntity;
-import commons.model.exception.ManagerException;
-import commons.model.exception.NonUniqueResultException;
-import commons.model.operation.CriteriaOperation;
-import commons.model.operation.ICriteriaOperation;
-import commons.model.operation.IDeleteEntityOperation;
-import commons.model.operation.ISaveEntityOperation;
-import commons.model.util.ManagerHelper;
+import persistence.helpers.bean.AllMetadata;
+import persistence.helpers.bean.EntityMapped;
+import persistence.helpers.bean.Metadata;
+import persistence.helpers.bean.OperationMetadata;
+import persistence.helpers.bean.TransferMetadata;
+import persistence.helpers.converter.IEntityConverter;
+import persistence.helpers.dto.ISimpleEntityDTO;
+import persistence.helpers.entity.IBaseEntity;
+import persistence.helpers.exception.ManagerException;
+import persistence.helpers.exception.NonUniqueResultException;
+import persistence.helpers.operation.CriteriaOperation;
+import persistence.helpers.operation.ICriteriaOperation;
+import persistence.helpers.operation.IDeleteEntityOperation;
+import persistence.helpers.operation.ISaveEntityOperation;
+import persistence.helpers.util.ManagerHelper;
 
 public class PersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBaseEntity> extends BasePersistenceManager implements IPersistenceEntityManager<T, E> {
 

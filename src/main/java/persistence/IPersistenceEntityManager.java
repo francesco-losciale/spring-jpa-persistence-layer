@@ -2,10 +2,10 @@ package persistence;
 
 import java.util.List;
 
-import commons.model.bean.Metadata;
-import commons.model.bean.OperationMetadata;
-import commons.model.dto.ISimpleEntityDTO;
-import commons.model.entity.IBaseEntity;
+import persistence.helpers.bean.Metadata;
+import persistence.helpers.bean.OperationMetadata;
+import persistence.helpers.dto.ISimpleEntityDTO;
+import persistence.helpers.entity.IBaseEntity;
 
 public interface IPersistenceEntityManager<T extends ISimpleEntityDTO, E extends IBaseEntity> {
 

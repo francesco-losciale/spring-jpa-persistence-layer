@@ -24,9 +24,9 @@ import com.dto.TestDTO;
 import com.manager.ITestCollectionManager;
 import com.manager.ITestManager;
 
-import commons.model.bean.OperationMetadata;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import persistence.helpers.bean.OperationMetadata;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

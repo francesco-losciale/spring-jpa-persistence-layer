@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import commons.model.bean.EntityMapped;
-import commons.model.dto.BaseEntityDTO;
+import persistence.helpers.bean.EntityMapped;
+import persistence.helpers.dto.BaseEntityDTO;
 
 @EntityMapped(value = "com.entity.TestCollectionEntity")
 public class TestCollectionDTO extends BaseEntityDTO {

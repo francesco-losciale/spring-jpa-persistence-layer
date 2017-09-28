@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import commons.model.entity.BaseEntity;
+import persistence.helpers.entity.BaseEntity;
 
 @Entity
 @Table(name="TEST")

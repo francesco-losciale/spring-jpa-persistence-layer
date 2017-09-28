@@ -23,7 +23,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @Configuration
 @EnableJpaAuditing(auditorAwareRef="appSpringSecurityAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
-@ComponentScan(basePackages = {"com.manager","com.entity","commons"})
+@ComponentScan(basePackages = {"com.manager","com.entity","persistence"})
 public class AppConfig extends GlobalMethodSecurityConfiguration {
 
 	@Override
