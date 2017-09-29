@@ -21,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dto.TestCollectionDTO;
 import com.dto.TestDTO;
-import com.manager.ITestCollectionManager;
-import com.manager.ITestManager;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import main.repository.ITestCollectionManager;
+import main.repository.ITestManager;
 import persistence.helpers.bean.OperationMetadata;
 
 

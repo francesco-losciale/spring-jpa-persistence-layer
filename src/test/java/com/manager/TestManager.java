@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.dto.TestDTO;
 import com.entity.TestEntity;
 
+import main.repository.ITestManager;
 import persistence.PersistenceEntityManager;
 
 @Repository

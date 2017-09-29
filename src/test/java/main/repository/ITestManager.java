@@ -1,4 +1,4 @@
-package com.manager;
+package main.repository;
 
 import com.dto.TestDTO;
 import com.entity.TestEntity;
