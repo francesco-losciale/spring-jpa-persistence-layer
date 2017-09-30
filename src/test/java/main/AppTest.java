@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import main.repository.ITestCollectionManager;
 import main.repository.ITestManager;
-import persistence.helpers.bean.OperationMetadata;
+import persistence2.helpers.bean.OperationMetadata;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

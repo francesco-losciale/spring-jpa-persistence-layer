@@ -6,7 +6,7 @@ import com.dto.TestDTO;
 import com.entity.TestEntity;
 
 import main.repository.ITestManager;
-import persistence.PersistenceEntityManager;
+import persistence2.PersistenceEntityManager;
 
 @Repository
 public class TestManager extends PersistenceEntityManager<TestDTO, TestEntity> implements ITestManager {

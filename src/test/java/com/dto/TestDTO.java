@@ -1,7 +1,7 @@
 package com.dto;
 
-import persistence.helpers.bean.EntityMapped;
-import persistence.helpers.dto.BaseEntityDTO;
+import persistence2.helpers.bean.EntityMapped;
+import persistence2.helpers.dto.BaseEntityDTO;
 
 @EntityMapped(value = "com.entity.TestEntity")
 public class TestDTO extends BaseEntityDTO {
