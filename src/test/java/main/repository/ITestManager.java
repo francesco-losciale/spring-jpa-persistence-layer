@@ -1,10 +1,9 @@
 package main.repository;
 
-import com.dto.TestDTO;
+import com.dto.Test;
 import com.entity.TestEntity;
+import com.persistence.base.IBaseRepository;
 
-import persistence2.IPersistenceEntityManager;
-
-public interface ITestManager extends IPersistenceEntityManager<TestDTO, TestEntity>{
+public interface ITestManager extends IBaseRepository<Test, TestEntity>{
 
 }

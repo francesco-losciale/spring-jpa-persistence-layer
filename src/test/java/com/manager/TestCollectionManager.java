@@ -1,14 +1,31 @@
 package com.manager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dto.TestCollectionDTO;
+import com.dto.TestCollection;
 import com.entity.TestCollectionEntity;
+import com.persistence.base.BaseRepository;
 
 import main.repository.ITestCollectionManager;
-import persistence2.PersistenceEntityManager;
 
 @Repository
-public class TestCollectionManager extends PersistenceEntityManager<TestCollectionDTO, TestCollectionEntity> implements ITestCollectionManager {
+public class TestCollectionManager extends BaseRepository<TestCollection, TestCollectionEntity> implements ITestCollectionManager {
+	
+	@Autowired
+	TestObjectMapperHelper mapperHelper;
+	
+	public TestCollectionManager() {
+		super(TestCollection.class, TestCollectionEntity.class);
+	}	
 
+	@Override
+	public TestCollection convert(TestCollectionEntity entityObject) {		
+		return mapperHelper.convertToTestCollection(entityObject);
+	}
+
+	@Override
+	public TestCollectionEntity convert(TestCollection domainObject) {		
+		return mapperHelper.convertToTestCollectionEntiy(domainObject);
+	}
 }

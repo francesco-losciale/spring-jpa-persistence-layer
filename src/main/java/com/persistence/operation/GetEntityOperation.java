@@ -9,22 +9,18 @@ import com.persistence.base.BasePersistenceProvider;
 import persistence2.helpers.exception.OperationException;
 
 @Repository
-public class UpdateEntityOperation<EntityObjectType> extends BasePersistenceProvider implements IUpdateEntityOperation<EntityObjectType> {
+public class GetEntityOperation<EntityObjectType> extends BasePersistenceProvider implements IGetEntityOperation<EntityObjectType>  {
 
-	public final static String NAME = "saveEntityOperation";
-
-	public UpdateEntityOperation() {
-		super();
-	}
-
-	public EntityObjectType update(EntityObjectType entity) throws OperationException {
+	@Override
+	public EntityObjectType get(Class<EntityObjectType> resultClass, Long id) throws OperationException {
 		EntityManager em = getEntityManager();
+		EntityObjectType resultEntity = null;
 		try {		
-			em.persist(entity);
+			resultEntity = em.find(resultClass, id);
 		} catch (Exception e) {
 			throw new OperationException(e);
 		} 
-		return entity;
+		return resultEntity;
 	}
 
 }

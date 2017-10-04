@@ -1,10 +1,11 @@
 package com.entity;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,17 +15,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import persistence2.helpers.entity.BaseEntity;
+import com.persistence.base.BaseEntity;
+
 
 @Entity
 @Table(name="TEST_COLLECTION")
 @SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
 public class TestCollectionEntity extends BaseEntity {
-	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String releaseName;
-	private Set<TestEntity> listTest;
+	private Set<TestEntity> listTestEntity;
 	
 	@Id
 	@SequenceGenerator(name="SQ_TEST_COLLECTION_GENERATOR", sequenceName="SQ_TEST_COLLECTION")
@@ -47,19 +48,19 @@ public class TestCollectionEntity extends BaseEntity {
 	
 	@OneToMany(mappedBy="testCollection", cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	public Set<TestEntity> getListTest() {
-		return listTest;
+		return listTestEntity;
 	}
-	public void setListTest(Set<TestEntity> listTest) {
-		this.listTest = listTest;
+	public void setListTest(Set<TestEntity> listTestEntity) {
+		this.listTestEntity = listTestEntity;
 	}
 	
-	public void addTest(TestEntity testEntity) {
-		if (this.listTest == null) {
-			this.listTest = new HashSet<>();
-		}
-		this.listTest.add(testEntity);
-		testEntity.setTestCollection(this);
-	}
+//	public void addTest(TestEntity testEntity) {
+//		if (this.listTest == null) {
+//			this.listTest = new HashSet<>();
+//		}
+//		this.listTest.add(testEntity);
+//		testEntity.setTestCollection(this);
+//	}
 		
 	
 }

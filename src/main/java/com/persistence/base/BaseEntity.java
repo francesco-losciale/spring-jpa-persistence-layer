@@ -19,8 +19,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-
 	private String userModify;
 
 	private Date dateModify;

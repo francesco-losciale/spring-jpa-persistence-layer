@@ -3,10 +3,11 @@ package com.persistence.base;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.persistence.operation.IDeleteEntityOperation;
+import com.persistence.operation.IGetEntityOperation;
 import com.persistence.operation.IInsertEntityOperation;
 import com.persistence.operation.IUpdateEntityOperation;
 
-public class BaseRepository<DomainObjectType, EntityObjectType extends BaseEntity> {
+public abstract class BaseRepository<DomainObjectType extends BaseDomain, EntityObjectType extends BaseEntity> implements IBaseRepository<DomainObjectType , EntityObjectType> {
 
 	private Class<DomainObjectType> domainObjectTypeClass; // TODO needed when reading from database
 	private Class<EntityObjectType> entityObjectTypeClass;
@@ -20,49 +21,41 @@ public class BaseRepository<DomainObjectType, EntityObjectType extends BaseEntit
 	@Autowired
 	private IUpdateEntityOperation<EntityObjectType> updateEntityOperation;
 	
+	@Autowired
+	private IGetEntityOperation<EntityObjectType> getEntityOperation;
+	
+	
 	protected BaseRepository(Class<DomainObjectType> domainObjectTypeClass, Class<EntityObjectType> entityObjectTypeClass) {
 		this.domainObjectTypeClass = domainObjectTypeClass;
 		this.entityObjectTypeClass = entityObjectTypeClass;	
 	}
 	
-	public void add(DomainObjectType domainObject) {
-		
-		EntityObjectType entityObject = newEntityObjectType();
-		
-		// TODO map domain object to a new entity object 
-		
-		insertEntityOperation.insert(entityObject);
-		
+	@Override
+	public DomainObjectType add(DomainObjectType domainObject) {
+		EntityObjectType entityObject = this.convert(domainObject);
+		entityObject = insertEntityOperation.insert(entityObject);	
+		return this.convert(entityObject);
 	}
 	
-	public void set(DomainObjectType domainObject) {
-		
-		EntityObjectType entityObject = newEntityObjectType();
-		
-		// TODO map domain object to a new entity object 
-		
-		updateEntityOperation.update(entityObject);
-				
+	@Override
+	public DomainObjectType set(DomainObjectType domainObject) {		
+		EntityObjectType entityObject = this.convert(domainObject);		
+		entityObject = updateEntityOperation.update(entityObject);		
+		return this.convert(entityObject);
 	}
 	
-	public void remove(DomainObjectType domainObject) {
-		
-		EntityObjectType entityObject = newEntityObjectType();
-		
-		// TODO map domain object to a new entity object 
-		
-		deleteEntityOperation.delete(entityObject);		
-		
+	@Override
+	public DomainObjectType remove(DomainObjectType domainObject) {		
+		EntityObjectType entityObject = this.convert(domainObject);		
+		entityObject = deleteEntityOperation.delete(entityObject);
+		return this.convert(entityObject);
+	}
+
+	@Override
+	public DomainObjectType get(Long id) {
+		EntityObjectType entityObject = getEntityOperation.get(entityObjectTypeClass, id);
+		return this.convert(entityObject);	
 	}
 	
-	private EntityObjectType newEntityObjectType() {
-		try {
-			return entityObjectTypeClass.newInstance();
-		} catch (InstantiationException e) {
-			throw new RuntimeException("Domain Model Object mapping error", e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException("Domain Model Object mapping error", e);
-		}
-	}
 	
 }
