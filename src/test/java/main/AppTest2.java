@@ -25,6 +25,7 @@ import main.repository.ITestCollectionManager;
 import main.repository.ITestManager;
 
 
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfig.class })
 public class AppTest2 extends TestCase {
@@ -57,9 +58,9 @@ public class AppTest2 extends TestCase {
 	}
 		
 	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	@Rollback(false)
-	public void testPopulateListCollection() {
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	//@Rollback(false)
+	public void testPopulate() {
 		
 		TestCollection testCollection = new TestCollection();
 		testCollection.setReleaseName("new_release_name");
@@ -81,15 +82,22 @@ public class AppTest2 extends TestCase {
 		assertTrue(test2 != null);
 		assertTrue(test2.getTestCollection() != null && test2.getTestCollection().getListTest().size() == 2);
 				
-		// check number of tests fetching from collection
-		
-		testCollection = testCollectionManager.get(1L);
-		assertTrue(testCollection != null);
-		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
-		
-		
 		// commit ...		
 		
 	}
+	
+	@Test
+	@Transactional(propagation = Propagation.REQUIRED)
+	@Rollback(false)
+	public void testRead() {
+		
+		testPopulate();
+				
+		TestCollection testCollection = testCollectionManager.get(1L);
+		assertTrue(testCollection != null);
+		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
+				
+	}
+	
 	
 }

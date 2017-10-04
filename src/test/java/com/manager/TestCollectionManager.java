@@ -28,4 +28,5 @@ public class TestCollectionManager extends BaseRepository<TestCollection, TestCo
 	public TestCollectionEntity convert(TestCollection domainObject) {		
 		return mapperHelper.convertToTestCollectionEntiy(domainObject);
 	}
+	
 }
