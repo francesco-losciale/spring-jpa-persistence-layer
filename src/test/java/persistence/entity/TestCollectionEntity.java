@@ -1,4 +1,4 @@
-package com.entity;
+package persistence.entity;
 
 import java.util.Set;
 

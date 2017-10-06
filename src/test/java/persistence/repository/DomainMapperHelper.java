@@ -1,4 +1,4 @@
-package com.repository;
+package persistence.repository;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -7,11 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
-import com.entity.TestCollectionEntity;
-import com.entity.TestEntity;
-
 import main.domain.object.Test;
 import main.domain.object.TestCollection;
+import persistence.entity.TestCollectionEntity;
+import persistence.entity.TestEntity;
 
 @Component
 public class DomainMapperHelper {

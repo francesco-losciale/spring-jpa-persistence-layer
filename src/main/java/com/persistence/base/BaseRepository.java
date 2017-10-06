@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.persistence.annotation.LogicalEntityDelete;
 import com.persistence.operation.IDeleteEntityOperation;
 import com.persistence.operation.IGetEntityOperation;
 import com.persistence.operation.IInsertEntityOperation;
@@ -48,10 +50,9 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 	}
 	
 	@Override
-	public DomainObjectType remove(DomainObjectType domainObject) {		
+	public void remove(DomainObjectType domainObject) {		
 		EntityObjectType entityObject = this.convert(domainObject);		
-		entityObject = deleteEntityOperation.delete(entityObject);
-		return this.convert(entityObject);
+		deleteEntityOperation.delete(entityObject);
 	}
 
 	@Override
@@ -64,7 +65,10 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		return getEntityOperation.getEntityManager().getCriteriaBuilder();
 	}
 	
-	public List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery) {
+	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
+		if (entityObjectTypeClass.isAnnotationPresent(LogicalEntityDelete.class)) {
+			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete")));
+		}		
 		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
 	}
 		

@@ -74,8 +74,15 @@ public class AppTest2 extends TestCase {
 		testCollection.addListTest(test2);
 				
 		testCollection = testCollectionRepository.set(testCollection);
-		
+		testCollection = testCollectionRepository.get(1L);
 		assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
+			
+		int i = 0;
+		for (main.domain.object.Test t : testCollection.getListTest()) {
+			if (i++ % 2 == 0) {
+				testRepository.remove(t);
+			}
+		}		
 		
 		// commit ...		
 		
@@ -101,6 +108,8 @@ public class AppTest2 extends TestCase {
 		assertTrue(test != null);
 		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 2);
 		
+		List<main.domain.object.Test> testList = testRepository.getAll();
+		assertTrue(testList != null && testList.size() == 1);
 	}
 	
 	

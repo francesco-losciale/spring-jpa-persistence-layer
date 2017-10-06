@@ -19,10 +19,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
+import persistence.auditing.PersistenceAuditorAware;
+
 @Configuration
-@EnableJpaAuditing(auditorAwareRef="appSpringSecurityAuditorAware")
+@EnableJpaAuditing(auditorAwareRef="jpaAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
-@ComponentScan(basePackages = {"com.repository","com.persistence.base","com.persistence.operation"})
+@ComponentScan(basePackages = {"persistence.repository","com.persistence.base","com.persistence.operation"})
 public class AppConfig extends GlobalMethodSecurityConfiguration {
 		
 	@Bean
@@ -42,7 +44,7 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactory.setJpaDialect(new HibernateJpaDialect());
-		entityManagerFactory.setPackagesToScan("com.repository","com.entity");
+		entityManagerFactory.setPackagesToScan("persistence.repository","persistence.entity");
 		entityManagerFactory.setJpaPropertyMap(hibernateJpaProperties());
 		return entityManagerFactory;
 	}
@@ -55,8 +57,8 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 	}	
 	
 	@Bean
-	public AppSpringSecurityAuditorAware appSpringSecurityAuditorAware() {
-		return new AppSpringSecurityAuditorAware();
+	public PersistenceAuditorAware jpaAuditorAware() {
+		return new PersistenceAuditorAware();
 	}
 	
 	private Map<String, ?> hibernateJpaProperties() {

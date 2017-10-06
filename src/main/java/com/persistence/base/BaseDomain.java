@@ -4,14 +4,18 @@ import java.util.Date;
 
 public class BaseDomain {
 
-	private String userModify;
-
+	private Date dateInsert;
+	
 	private Date dateModify;
 
-	private Date dateInsert;
+	private Date dateDelete;
 
 	private String userInsert;
 
+	private String userModify;
+	
+	private String userDelete;
+	
 	private Integer version;
 
 	public String getUserModify() {
@@ -46,13 +50,27 @@ public class BaseDomain {
 		this.userInsert = userInsert;
 	}
 
+	public Date getDateDelete() {
+		return dateDelete;
+	}
+
+	public void setDateDelete(Date dateDelete) {
+		this.dateDelete = dateDelete;
+	}
+
+	public String getUserDelete() {
+		return userDelete;
+	}
+
+	public void setUserDelete(String userDelete) {
+		this.userDelete = userDelete;
+	}
+	
 	public Integer getVersion() {
 		return version;
 	}
 
 	public void setVersion(Integer version) {
 		this.version = version;
-	}
-	
-	
+	}	
 }

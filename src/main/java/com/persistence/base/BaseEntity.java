@@ -19,14 +19,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-	private String userModify;
-
 	private Date dateModify;
 
 	private Date dateInsert;
+	
+	private Date dateDelete;
+
+	private String userModify;
 
 	private String userInsert;
 
+	private String userDelete;
+	
 	private Integer version;
 
 	public BaseEntity() {
@@ -53,6 +57,16 @@ public abstract class BaseEntity {
 		this.dateModify = dateModify;
 	}
 
+	@Column(name = "DATE_DELETE")
+	public Date getDateDelete() {
+		return dateDelete;
+	}
+
+	public void setDateDelete(Date dateDelete) {
+		this.dateDelete = dateDelete;
+	}
+	
+	
 	@CreatedBy
 	@Column(name = "USER_INSERT")
 	public String getUserInsert() {
@@ -71,6 +85,16 @@ public abstract class BaseEntity {
 
 	public void setUserModify(String userModify) {
 		this.userModify = userModify;
+	}
+
+
+	@Column(name = "USER_DELETE")
+	public String getUserDelete() {
+		return userDelete;
+	}
+
+	public void setUserDelete(String userDelete) {
+		this.userDelete = userDelete;
 	}
 
 	@Version

@@ -1,7 +1,6 @@
 package com.persistence.operation;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
@@ -23,24 +22,13 @@ public class GetEntityOperation<EntityObjectType> extends BasePersistenceProvide
 		EntityManager em = getEntityManager();
 		EntityObjectType resultEntity = null;
 		try {		
-			resultEntity = em.find(resultClass, id); //.getReference(resultClass, id);
+			resultEntity = em.getReference(resultClass, id);
 		} catch (Exception e) {
 			throw new OperationException(e);
 		}
 		return resultEntity;
 	}
 	
-	public Query createJpqlQuery(String jpql) {
-		EntityManager em = getEntityManager();
-		return em.createQuery(jpql);		
-	}
-	
-	public Query createJpqlQuery(String jpql, Class<EntityObjectType> resultClass) {
-		EntityManager em = getEntityManager();
-		return em.createQuery(jpql, resultClass);		
-	}
-	
-	/* TODO Remove */
 	public EntityManager getEntityManager() {
 		return super.getEntityManager();
 	}

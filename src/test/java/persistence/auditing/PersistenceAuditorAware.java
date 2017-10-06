@@ -1,4 +1,4 @@
-package main;
+package persistence.auditing;
 
 
 import org.springframework.data.domain.AuditorAware;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppSpringSecurityAuditorAware implements AuditorAware<String> {
+public class PersistenceAuditorAware implements AuditorAware<String> {
 
 	@Override
 	public String getCurrentAuditor() {

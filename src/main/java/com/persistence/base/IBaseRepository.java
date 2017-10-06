@@ -6,7 +6,7 @@ public interface IBaseRepository<DomainObjectType extends BaseDomain, EntityObje
 	
 	public DomainObjectType set(DomainObjectType domainObject);
 	
-	public DomainObjectType remove(DomainObjectType domainObject);
+	public void remove(DomainObjectType domainObject);
 	
 	public DomainObjectType get(Long id);
 	
