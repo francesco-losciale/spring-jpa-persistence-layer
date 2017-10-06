@@ -13,10 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.persistence.annotation.LogicalEntityDelete;
 import com.persistence.base.BaseEntity;
 
 
 @Entity
+@LogicalEntityDelete
 @Table(name="TEST_COLLECTION")
 @SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
 public class TestCollectionEntity extends BaseEntity {

@@ -8,7 +8,7 @@ public interface IBaseRepository<DomainObjectType extends BaseDomain, EntityObje
 	
 	public void remove(DomainObjectType domainObject);
 	
-	public DomainObjectType get(Long id);
+	public DomainObjectType get(Object id, String idFieldName);
 	
 	public DomainObjectType convert(EntityObjectType entityObject);
 	

@@ -10,8 +10,6 @@ import com.persistence.exception.OperationException;
 @Repository
 public class InsertEntityOperation<EntityObjectType> extends BasePersistenceProvider implements IInsertEntityOperation<EntityObjectType> {
 
-	public final static String NAME = "saveEntityOperation";
-
 	public InsertEntityOperation() {
 		super();
 	}

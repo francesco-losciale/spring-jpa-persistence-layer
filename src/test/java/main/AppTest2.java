@@ -74,7 +74,7 @@ public class AppTest2 extends TestCase {
 		testCollection.addListTest(test2);
 				
 		testCollection = testCollectionRepository.set(testCollection);
-		testCollection = testCollectionRepository.get(1L);
+		testCollection = testCollectionRepository.get(1L, "id");
 		assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
 			
 		int i = 0;
@@ -83,6 +83,8 @@ public class AppTest2 extends TestCase {
 				testRepository.remove(t);
 			}
 		}		
+		
+		// TODO check DATE_DELETE
 		
 		// commit ...		
 		
@@ -95,7 +97,7 @@ public class AppTest2 extends TestCase {
 		
 		testPopulate();
 				
-		TestCollection testCollection = testCollectionRepository.get(1L);
+		TestCollection testCollection = testCollectionRepository.get(1L, "id");
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
 			
@@ -104,12 +106,20 @@ public class AppTest2 extends TestCase {
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
 		
-		main.domain.object.Test test = testRepository.get(1L);
+		main.domain.object.Test test = testRepository.get(1L, "id");
 		assertTrue(test != null);
 		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 2);
 		
 		List<main.domain.object.Test> testList = testRepository.getAll();
 		assertTrue(testList != null && testList.size() == 1);
+		
+		testCollection = testCollectionRepository.get(1L, "id");
+		
+		// TODO when you load the collection from db, in listTest there should be only one entity (not the one with date_delete not null)
+		
+		// then remove the parent object				
+		testCollectionRepository.remove(testCollection);
+						
 	}
 	
 	

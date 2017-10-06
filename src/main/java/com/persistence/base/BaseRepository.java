@@ -1,6 +1,7 @@
 package com.persistence.base;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -54,12 +55,6 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		EntityObjectType entityObject = this.convert(domainObject);		
 		deleteEntityOperation.delete(entityObject);
 	}
-
-	@Override
-	public DomainObjectType get(Long id) {
-		EntityObjectType entityObject = getEntityOperation.get(entityObjectTypeClass, id);
-		return this.convert(entityObject);	
-	}
 		
 	public CriteriaBuilder getCriteriaBuilder() {
 		return getEntityOperation.getEntityManager().getCriteriaBuilder();
@@ -70,6 +65,33 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete")));
 		}		
 		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
+	}
+	
+	public List<DomainObjectType> getAll() {
+		
+		CriteriaQuery<EntityObjectType> q = getCriteriaBuilder().createQuery(entityObjectTypeClass);
+		Root<EntityObjectType> c = q.from(entityObjectTypeClass);		
+		q.select(c);
+		
+		List<EntityObjectType> entityList = executeQuery(q, c);
+		List<DomainObjectType> domainList = entityList.stream().map(t -> convert(t)).collect(Collectors.toList());
+		
+		return domainList;
+	}
+		
+	public DomainObjectType get(Object id, String idFieldName) {
+		
+		CriteriaQuery<EntityObjectType> q = getCriteriaBuilder().createQuery(entityObjectTypeClass);
+		Root<EntityObjectType> c = q.from(entityObjectTypeClass);		
+		q.select(c);
+		
+		q = q.where(getCriteriaBuilder().equal(c.get(idFieldName), id));
+		List<EntityObjectType> entityList = executeQuery(q, c);
+		if (entityList.size() > 1) {
+			throw new RuntimeException("More than one row selected");
+		}
+		EntityObjectType entityObject = entityList.get(0);
+		return convert(entityObject);
 	}
 		
 }
