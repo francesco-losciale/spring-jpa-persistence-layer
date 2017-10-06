@@ -14,7 +14,7 @@ import main.domain.object.Test;
 import main.domain.object.TestCollection;
 
 @Component
-public class TestObjectMapperHelper {
+public class DomainMapperHelper {
 
 	private ModelMapper modelMapper = new ModelMapper();
 	

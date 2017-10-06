@@ -13,7 +13,7 @@ import main.domain.repository.ITestRepository;
 public class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
 	
 	@Autowired
-	TestObjectMapperHelper mapperHelper;
+	DomainMapperHelper mapperHelper;
 	
 	public TestRepository() {
 		super(TestEntity.class);

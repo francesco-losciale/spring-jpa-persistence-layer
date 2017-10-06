@@ -19,7 +19,7 @@ import main.domain.repository.ITestCollectionRepository;
 public class TestCollectionRepository extends BaseRepository<TestCollection, TestCollectionEntity> implements ITestCollectionRepository {
 	
 	@Autowired
-	TestObjectMapperHelper mapperHelper;
+	DomainMapperHelper mapperHelper;
 	
 	public TestCollectionRepository() {
 		super(TestCollectionEntity.class);
