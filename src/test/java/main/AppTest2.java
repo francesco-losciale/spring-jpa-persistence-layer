@@ -34,6 +34,9 @@ public class AppTest2 extends TestCase {
 	@Autowired
 	private ITestCollectionManager testCollectionManager;
 	
+	@Autowired
+	private ITestManager testManager;
+	
 	
 	/**
 	 * Create the test case
@@ -94,6 +97,10 @@ public class AppTest2 extends TestCase {
 		testCollection = listTestCollection.get(0);
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
+		
+		com.dto.Test test = testManager.get(1L);
+		assertTrue(test != null);
+		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 2);
 		
 	}
 	

@@ -16,7 +16,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
@@ -25,14 +24,6 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @EnableGlobalMethodSecurity(securedEnabled=true)
 @ComponentScan(basePackages = {"com.manager","com.persistence.base","com.persistence.operation"})
 public class AppConfig extends GlobalMethodSecurityConfiguration {
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-		.inMemoryAuthentication()
-		.withUser("user").password("password").roles("TEST");	
-		
-	}
 		
 	@Bean
 	public BasicDataSource dataSource() {
@@ -43,23 +34,7 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 		basicDataSource.setPassword("root");
 		return basicDataSource;
 	}
-	
-	private Map<String, ?> hibernateJpaProperties() {
-		HashMap<String, String> properties = new HashMap<>();
-		properties.put("hibernate.hbm2ddl.auto", "create"); 
-		properties.put("hibernate.default_schema", "PUBLIC");
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		//properties.put("hibernate.show_sql", "false");
-		//properties.put("hibernate.format_sql", "false");
-		//properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
-
-		//properties.put("hibernate.c3p0.min_size", "2");
-		//properties.put("hibernate.c3p0.max_size", "5");
-		//properties.put("hibernate.c3p0.timeout", "300"); // 5mins
-
-		return properties;
-	}
-	
+		
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
 		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
@@ -82,5 +57,21 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 	@Bean
 	public AppSpringSecurityAuditorAware appSpringSecurityAuditorAware() {
 		return new AppSpringSecurityAuditorAware();
+	}
+	
+	private Map<String, ?> hibernateJpaProperties() {
+		HashMap<String, String> properties = new HashMap<>();
+		properties.put("hibernate.hbm2ddl.auto", "create"); 
+		properties.put("hibernate.default_schema", "PUBLIC");
+		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		//properties.put("hibernate.show_sql", "false");
+		//properties.put("hibernate.format_sql", "false");
+		//properties.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
+
+		//properties.put("hibernate.c3p0.min_size", "2");
+		//properties.put("hibernate.c3p0.max_size", "5");
+		//properties.put("hibernate.c3p0.timeout", "300"); // 5mins
+
+		return properties;
 	}
 }
