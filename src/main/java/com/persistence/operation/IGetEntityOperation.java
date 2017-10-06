@@ -3,7 +3,7 @@ package com.persistence.operation;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import persistence2.helpers.exception.OperationException;
+import com.persistence.exception.OperationException;
 
 public interface IGetEntityOperation<EntityObjectType> {
 	

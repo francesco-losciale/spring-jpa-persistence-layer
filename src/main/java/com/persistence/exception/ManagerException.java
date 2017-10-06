@@ -1,4 +1,4 @@
-package persistence2.helpers.exception;
+package com.persistence.exception;
 
 public class ManagerException extends RuntimeException {
 

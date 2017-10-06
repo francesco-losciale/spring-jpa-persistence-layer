@@ -1,6 +1,6 @@
 package com.persistence.operation;
 
-import persistence2.helpers.exception.OperationException;
+import com.persistence.exception.OperationException;
 
 public interface IUpdateEntityOperation<EntityObjectType> {
 

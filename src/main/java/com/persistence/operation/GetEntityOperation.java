@@ -6,8 +6,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.persistence.base.BasePersistenceProvider;
-
-import persistence2.helpers.exception.OperationException;
+import com.persistence.exception.OperationException;
 
 @Repository
 public class GetEntityOperation<EntityObjectType> extends BasePersistenceProvider implements IGetEntityOperation<EntityObjectType>  {
