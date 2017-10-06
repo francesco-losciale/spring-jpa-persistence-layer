@@ -1,4 +1,4 @@
-package com.manager;
+package com.repository;
 
 import java.util.List;
 import java.util.stream.Collectors;

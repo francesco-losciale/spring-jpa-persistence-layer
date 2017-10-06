@@ -1,4 +1,4 @@
-package com.manager;
+package com.repository;
 
 import java.lang.reflect.Type;
 import java.util.Set;
