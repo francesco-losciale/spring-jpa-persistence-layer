@@ -7,10 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
-import com.dto.Test;
-import com.dto.TestCollection;
 import com.entity.TestCollectionEntity;
 import com.entity.TestEntity;
+
+import main.domain.object.Test;
+import main.domain.object.TestCollection;
 
 @Component
 public class TestObjectMapperHelper {

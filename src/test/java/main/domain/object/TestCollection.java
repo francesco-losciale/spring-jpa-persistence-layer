@@ -1,4 +1,4 @@
-package com.dto;
+package main.domain.object;
 
 import java.util.ArrayList;
 import java.util.HashSet;

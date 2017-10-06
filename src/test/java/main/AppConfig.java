@@ -22,7 +22,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 @Configuration
 @EnableJpaAuditing(auditorAwareRef="appSpringSecurityAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
-@ComponentScan(basePackages = {"com.manager","com.persistence.base","com.persistence.operation"})
+@ComponentScan(basePackages = {"com.repository","com.persistence.base","com.persistence.operation"})
 public class AppConfig extends GlobalMethodSecurityConfiguration {
 		
 	@Bean
@@ -42,7 +42,7 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactory.setJpaDialect(new HibernateJpaDialect());
-		entityManagerFactory.setPackagesToScan("com.manager","com.entity");
+		entityManagerFactory.setPackagesToScan("com.repository","com.entity");
 		entityManagerFactory.setJpaPropertyMap(hibernateJpaProperties());
 		return entityManagerFactory;
 	}

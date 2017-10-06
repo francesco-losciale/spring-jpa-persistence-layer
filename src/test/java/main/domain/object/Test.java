@@ -1,4 +1,4 @@
-package com.dto;
+package main.domain.object;
 
 import com.persistence.base.BaseDomain;
 

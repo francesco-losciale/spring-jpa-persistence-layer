@@ -3,10 +3,10 @@ package com.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dto.Test;
 import com.entity.TestEntity;
 import com.persistence.base.BaseRepository;
 
+import main.domain.object.Test;
 import main.repository.ITestRepository;
 
 @Repository

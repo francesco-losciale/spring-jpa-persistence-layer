@@ -9,10 +9,10 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.dto.TestCollection;
 import com.entity.TestCollectionEntity;
 import com.persistence.base.BaseRepository;
 
+import main.domain.object.TestCollection;
 import main.repository.ITestCollectionRepository;
 
 @Repository

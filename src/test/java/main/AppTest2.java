@@ -18,10 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dto.TestCollection;
-
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import main.domain.object.TestCollection;
 import main.repository.ITestCollectionRepository;
 import main.repository.ITestRepository;
 
@@ -32,10 +31,10 @@ import main.repository.ITestRepository;
 public class AppTest2 extends TestCase {
 			
 	@Autowired
-	private ITestCollectionRepository testCollectionManager;
+	private ITestCollectionRepository testCollectionRepository;
 	
 	@Autowired
-	private ITestRepository testManager;
+	private ITestRepository testRepository;
 	
 	
 	/**
@@ -64,17 +63,17 @@ public class AppTest2 extends TestCase {
 		
 		TestCollection testCollection = new TestCollection();
 		testCollection.setReleaseName("new_release_name");
-		testCollection = testCollectionManager.add(testCollection);
+		testCollection = testCollectionRepository.add(testCollection);
 		
-		com.dto.Test test = new com.dto.Test(); // entity 1
+		main.domain.object.Test test = new main.domain.object.Test(); // entity 1
 		test.setTestCollection(testCollection);
 		testCollection.addListTest(test);
 			
-		com.dto.Test test2 = new com.dto.Test(); // entity 2
+		main.domain.object.Test test2 = new main.domain.object.Test(); // entity 2
 		test2.setTestCollection(testCollection);
 		testCollection.addListTest(test2);
 				
-		testCollection = testCollectionManager.set(testCollection);
+		testCollection = testCollectionRepository.set(testCollection);
 		
 		assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
 		
@@ -89,16 +88,16 @@ public class AppTest2 extends TestCase {
 		
 		testPopulate();
 				
-		TestCollection testCollection = testCollectionManager.get(1L);
+		TestCollection testCollection = testCollectionRepository.get(1L);
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
 			
-		List<TestCollection> listTestCollection = testCollectionManager.getAll();
+		List<TestCollection> listTestCollection = testCollectionRepository.getAll();
 		testCollection = listTestCollection.get(0);
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
 		
-		com.dto.Test test = testManager.get(1L);
+		main.domain.object.Test test = testRepository.get(1L);
 		assertTrue(test != null);
 		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 2);
 		
