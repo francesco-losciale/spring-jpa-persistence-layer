@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import main.domain.object.TestCollection;
-import main.repository.ITestCollectionRepository;
-import main.repository.ITestRepository;
+import main.domain.repository.ITestCollectionRepository;
+import main.domain.repository.ITestRepository;
 
 
 

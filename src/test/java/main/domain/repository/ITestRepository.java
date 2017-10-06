@@ -1,4 +1,4 @@
-package main.repository;
+package main.domain.repository;
 
 import com.entity.TestEntity;
 import com.persistence.base.IBaseRepository;

@@ -7,7 +7,7 @@ import com.entity.TestEntity;
 import com.persistence.base.BaseRepository;
 
 import main.domain.object.Test;
-import main.repository.ITestRepository;
+import main.domain.repository.ITestRepository;
 
 @Repository
 public class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {

@@ -1,9 +1,6 @@
 
 - DeleteEntityOperation - implement new logical delete
 
-- try to create from scratch your own PersistenceEntityManager tidier than the old one 
-
-
 - use 2nd level cache
 
 - when you create and entity, the auditing data in all the child ones is missing - SaveEntityOperation.beforeSave should be called on child entity too
