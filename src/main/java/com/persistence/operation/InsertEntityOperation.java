@@ -23,7 +23,9 @@ public class InsertEntityOperation<EntityObjectType> extends BasePersistenceProv
 			em.persist(entity);
 		} catch (Exception e) {
 			throw new OperationException(e);
-		} 
+		} finally {
+			em.flush();
+		}
 		return entity;
 	}
 

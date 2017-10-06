@@ -1,5 +1,10 @@
 package com.persistence.base;
 
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.persistence.operation.IDeleteEntityOperation;
@@ -56,6 +61,13 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		EntityObjectType entityObject = getEntityOperation.get(entityObjectTypeClass, id);
 		return this.convert(entityObject);	
 	}
+		
+	public CriteriaBuilder getCriteriaBuilder() {
+		return getEntityOperation.getEntityManager().getCriteriaBuilder();
+	}
 	
-	
+	public List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery) {
+		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
+	}
+		
 }

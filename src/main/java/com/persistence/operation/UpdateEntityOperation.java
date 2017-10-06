@@ -20,10 +20,12 @@ public class UpdateEntityOperation<EntityObjectType> extends BasePersistenceProv
 	public EntityObjectType update(EntityObjectType entity) throws OperationException {
 		EntityManager em = getEntityManager();
 		try {		
-			em.persist(entity);
+			em.merge(entity);
 		} catch (Exception e) {
 			throw new OperationException(e);
-		} 
+		} finally {
+			em.flush();
+		}
 		return entity;
 	}
 

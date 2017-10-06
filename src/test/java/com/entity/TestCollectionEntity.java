@@ -4,8 +4,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,6 +21,7 @@ import com.persistence.base.BaseEntity;
 @SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
 public class TestCollectionEntity extends BaseEntity {
 
+	
 	private Long id;
 	private String releaseName;
 	private Set<TestEntity> listTestEntity;
@@ -53,14 +52,5 @@ public class TestCollectionEntity extends BaseEntity {
 	public void setListTest(Set<TestEntity> listTestEntity) {
 		this.listTestEntity = listTestEntity;
 	}
-	
-//	public void addTest(TestEntity testEntity) {
-//		if (this.listTest == null) {
-//			this.listTest = new HashSet<>();
-//		}
-//		this.listTest.add(testEntity);
-//		testEntity.setTestCollection(this);
-//	}
 		
-	
 }

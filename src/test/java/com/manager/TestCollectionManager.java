@@ -1,5 +1,11 @@
 package com.manager;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +35,15 @@ public class TestCollectionManager extends BaseRepository<TestCollection, TestCo
 		return mapperHelper.convertToTestCollectionEntiy(domainObject);
 	}
 	
+	public List<TestCollection> getAll() {
+		
+		CriteriaQuery<TestCollectionEntity> q = getCriteriaBuilder().createQuery(TestCollectionEntity.class);
+		Root<TestCollectionEntity> c = q.from(TestCollectionEntity.class);		
+		q.select(c);
+		
+		List<TestCollectionEntity> testCollectionEntity = executeQuery(q);
+		List<TestCollection> listTestCollection = testCollectionEntity.stream().map(t -> convert(t)).collect(Collectors.toList());
+		
+		return listTestCollection;
+	}
 }

@@ -2,6 +2,7 @@ package main;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +34,6 @@ public class AppTest2 extends TestCase {
 	@Autowired
 	private ITestCollectionManager testCollectionManager;
 	
-	@Autowired
-	private ITestManager testManager;
 	
 	/**
 	 * Create the test case
@@ -57,9 +56,7 @@ public class AppTest2 extends TestCase {
 		return new TestSuite(AppTest2.class);
 	}
 		
-	@Test
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	//@Rollback(false)
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void testPopulate() {
 		
 		TestCollection testCollection = new TestCollection();
@@ -69,19 +66,15 @@ public class AppTest2 extends TestCase {
 		com.dto.Test test = new com.dto.Test(); // entity 1
 		test.setTestCollection(testCollection);
 		testCollection.addListTest(test);
-		test = testManager.add(test); 
-		
-		assertTrue(test != null);
-		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 1);
-		
+			
 		com.dto.Test test2 = new com.dto.Test(); // entity 2
 		test2.setTestCollection(testCollection);
-		testCollection.addListTest(test);
-		test2 = testManager.add(test2); 
-		
-		assertTrue(test2 != null);
-		assertTrue(test2.getTestCollection() != null && test2.getTestCollection().getListTest().size() == 2);
+		testCollection.addListTest(test2);
 				
+		testCollection = testCollectionManager.set(testCollection);
+		
+		assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
+		
 		// commit ...		
 		
 	}
@@ -96,7 +89,12 @@ public class AppTest2 extends TestCase {
 		TestCollection testCollection = testCollectionManager.get(1L);
 		assertTrue(testCollection != null);
 		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
-				
+			
+		List<TestCollection> listTestCollection = testCollectionManager.getAll();
+		testCollection = listTestCollection.get(0);
+		assertTrue(testCollection != null);
+		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
+		
 	}
 	
 	

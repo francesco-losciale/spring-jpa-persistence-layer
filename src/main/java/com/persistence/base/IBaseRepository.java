@@ -13,5 +13,5 @@ public interface IBaseRepository<DomainObjectType extends BaseDomain, EntityObje
 	public DomainObjectType convert(EntityObjectType entityObject);
 	
 	public EntityObjectType convert(DomainObjectType domainObject);
-	
+		
 }
