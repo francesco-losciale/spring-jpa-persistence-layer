@@ -16,7 +16,7 @@ public class TestRepository extends BaseRepository<Test, TestEntity> implements 
 	TestObjectMapperHelper mapperHelper;
 	
 	public TestRepository() {
-		super(Test.class, TestEntity.class);
+		super(TestEntity.class);
 	}
 
 	@Override

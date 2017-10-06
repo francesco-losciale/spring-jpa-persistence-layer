@@ -22,7 +22,7 @@ public class TestCollectionRepository extends BaseRepository<TestCollection, Tes
 	TestObjectMapperHelper mapperHelper;
 	
 	public TestCollectionRepository() {
-		super(TestCollection.class, TestCollectionEntity.class);
+		super(TestCollectionEntity.class);
 	}	
 
 	@Override

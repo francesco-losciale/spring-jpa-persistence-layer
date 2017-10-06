@@ -14,7 +14,6 @@ import com.persistence.operation.IUpdateEntityOperation;
 
 public abstract class BaseRepository<DomainObjectType extends BaseDomain, EntityObjectType extends BaseEntity> implements IBaseRepository<DomainObjectType , EntityObjectType> {
 
-	private Class<DomainObjectType> domainObjectTypeClass; // TODO needed when reading from database
 	private Class<EntityObjectType> entityObjectTypeClass;
 	
 	@Autowired
@@ -30,8 +29,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 	private IGetEntityOperation<EntityObjectType> getEntityOperation;
 	
 	
-	protected BaseRepository(Class<DomainObjectType> domainObjectTypeClass, Class<EntityObjectType> entityObjectTypeClass) {
-		this.domainObjectTypeClass = domainObjectTypeClass;
+	protected BaseRepository(Class<EntityObjectType> entityObjectTypeClass) {
 		this.entityObjectTypeClass = entityObjectTypeClass;	
 	}
 	
