@@ -7,15 +7,15 @@ import com.dto.Test;
 import com.entity.TestEntity;
 import com.persistence.base.BaseRepository;
 
-import main.repository.ITestManager;
+import main.repository.ITestRepository;
 
 @Repository
-public class TestManager extends BaseRepository<Test, TestEntity> implements ITestManager {
+public class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
 	
 	@Autowired
 	TestObjectMapperHelper mapperHelper;
 	
-	public TestManager() {
+	public TestRepository() {
 		super(Test.class, TestEntity.class);
 	}
 

@@ -22,8 +22,8 @@ import com.dto.TestCollection;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.repository.ITestCollectionManager;
-import main.repository.ITestManager;
+import main.repository.ITestCollectionRepository;
+import main.repository.ITestRepository;
 
 
 
@@ -32,10 +32,10 @@ import main.repository.ITestManager;
 public class AppTest2 extends TestCase {
 			
 	@Autowired
-	private ITestCollectionManager testCollectionManager;
+	private ITestCollectionRepository testCollectionManager;
 	
 	@Autowired
-	private ITestManager testManager;
+	private ITestRepository testManager;
 	
 	
 	/**

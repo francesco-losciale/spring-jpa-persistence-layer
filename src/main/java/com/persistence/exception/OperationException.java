@@ -1,6 +1,6 @@
 package com.persistence.exception;
 
-public class OperationException extends ManagerException {
+public class OperationException extends GenericException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -13,15 +13,15 @@ import com.dto.TestCollection;
 import com.entity.TestCollectionEntity;
 import com.persistence.base.BaseRepository;
 
-import main.repository.ITestCollectionManager;
+import main.repository.ITestCollectionRepository;
 
 @Repository
-public class TestCollectionManager extends BaseRepository<TestCollection, TestCollectionEntity> implements ITestCollectionManager {
+public class TestCollectionRepository extends BaseRepository<TestCollection, TestCollectionEntity> implements ITestCollectionRepository {
 	
 	@Autowired
 	TestObjectMapperHelper mapperHelper;
 	
-	public TestCollectionManager() {
+	public TestCollectionRepository() {
 		super(TestCollection.class, TestCollectionEntity.class);
 	}	
 
