@@ -4,6 +4,7 @@ package main;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.annotations.Where;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.persistence.annotation.SoftDeleteEntity;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -95,7 +99,7 @@ public class AppTest2 extends TestCase {
 	@Rollback(false)
 	public void testRead() {
 		
-		testPopulate();
+		//testPopulate();
 				
 		TestCollection testCollection = testCollectionRepository.get(1L, "id");
 		assertTrue(testCollection != null);
@@ -113,14 +117,15 @@ public class AppTest2 extends TestCase {
 		List<main.domain.object.Test> testList = testRepository.getAll();
 		assertTrue(testList != null && testList.size() == 1);
 		
+		
 		testCollection = testCollectionRepository.get(1L, "id");
 		
 		// TODO when you load the collection from db, in listTest there should be only one entity (not the one with date_delete not null)
 		
 		// then remove the parent object				
-		testCollectionRepository.remove(testCollection);
-						
-	}
-	
+		//testCollectionRepository.remove(testCollection);
+					
+
+	}	
 	
 }

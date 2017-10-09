@@ -7,9 +7,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.persistence.annotation.LogicalEntityDelete;
+import com.persistence.annotation.SoftDeleteEntity;
 import com.persistence.operation.IDeleteEntityOperation;
 import com.persistence.operation.IGetEntityOperation;
 import com.persistence.operation.IInsertEntityOperation;
@@ -61,7 +62,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 	}
 	
 	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
-		if (entityObjectTypeClass.isAnnotationPresent(LogicalEntityDelete.class)) {
+		if (entityObjectTypeClass.isAnnotationPresent(SoftDeleteEntity.class)) { //TODO not reusable, please decouple
 			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete")));
 		}		
 		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
@@ -91,6 +92,10 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 			throw new RuntimeException("More than one row selected");
 		}
 		EntityObjectType entityObject = entityList.get(0);
+		
+		entityObject.getClass().isAnnotationPresent(SoftDeleteEntity.class);
+		entityObject.getClass().isAnnotationPresent(Where.class);
+		
 		return convert(entityObject);
 	}
 		

@@ -11,13 +11,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.persistence.annotation.LogicalEntityDelete;
+import org.hibernate.annotations.Where;
+
+import com.persistence.annotation.SoftDeleteEntity;
 import com.persistence.base.BaseEntity;
 
 
 @Entity
 @Table(name="TEST")
-@LogicalEntityDelete
+@SoftDeleteEntity
+@Where(clause="DATE_DELETE is null")
 public class TestEntity extends BaseEntity {
 
 	private Long id;

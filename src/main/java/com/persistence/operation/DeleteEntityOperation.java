@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Repository;
 
-import com.persistence.annotation.LogicalEntityDelete;
+import com.persistence.annotation.SoftDeleteEntity;
 import com.persistence.base.BaseEntity;
 import com.persistence.base.BasePersistenceProvider;
 import com.persistence.exception.OperationException;
@@ -31,7 +31,7 @@ public class DeleteEntityOperation<EntityObjectType extends BaseEntity> extends 
 		
 		EntityManager em = getEntityManager();
 		try {
-			boolean isLogicalDelete = entity.getClass().isAnnotationPresent(LogicalEntityDelete.class); 
+			boolean isLogicalDelete = entity.getClass().isAnnotationPresent(SoftDeleteEntity.class); 
 			if (isLogicalDelete) {
 				
 				// logical delete on parent object

@@ -13,14 +13,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.persistence.annotation.LogicalEntityDelete;
+import org.hibernate.annotations.Where;
+
+import com.persistence.annotation.SoftDeleteEntity;
 import com.persistence.base.BaseEntity;
 
 
 @Entity
-@LogicalEntityDelete
 @Table(name="TEST_COLLECTION")
 @SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
+@SoftDeleteEntity
+@Where(clause="DATE_DELETE is null")
 public class TestCollectionEntity extends BaseEntity {
 
 	
