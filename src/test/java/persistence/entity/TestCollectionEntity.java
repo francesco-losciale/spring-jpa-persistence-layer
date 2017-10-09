@@ -15,15 +15,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-import com.persistence.annotation.SoftDeleteEntity;
+import com.persistence.annotation.SoftDeleteActive;
 import com.persistence.base.BaseEntity;
 
 
 @Entity
 @Table(name="TEST_COLLECTION")
 @SequenceGenerator(name="SQ_TEST_COLLECTION", initialValue=1, allocationSize=100)
-@SoftDeleteEntity
-@Where(clause="DATE_DELETE is null")
+@SoftDeleteActive
+@Where(clause="DATE_DELETE is null") // hibernate annotation! no good... please solve this TODO
 public class TestCollectionEntity extends BaseEntity {
 
 	

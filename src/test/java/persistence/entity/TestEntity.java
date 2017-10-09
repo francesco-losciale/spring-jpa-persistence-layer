@@ -13,14 +13,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
-import com.persistence.annotation.SoftDeleteEntity;
+import com.persistence.annotation.SoftDeleteActive;
 import com.persistence.base.BaseEntity;
 
 
 @Entity
 @Table(name="TEST")
-@SoftDeleteEntity
-@Where(clause="DATE_DELETE is null")
+@SoftDeleteActive
+@Where(clause="DATE_DELETE is null") // hibernate annotation! no good... please solve this TODO
 public class TestEntity extends BaseEntity {
 
 	private Long id;

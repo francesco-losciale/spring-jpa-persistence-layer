@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Repository;
 
-import com.persistence.annotation.SoftDeleteEntity;
+import com.persistence.annotation.SoftDeleteActive;
 import com.persistence.base.BaseEntity;
 import com.persistence.base.BasePersistenceProvider;
 import com.persistence.exception.OperationException;
@@ -31,15 +31,15 @@ public class DeleteEntityOperation<EntityObjectType extends BaseEntity> extends 
 		
 		EntityManager em = getEntityManager();
 		try {
-			boolean isLogicalDelete = entity.getClass().isAnnotationPresent(SoftDeleteEntity.class); 
-			if (isLogicalDelete) {
+			boolean isSoftDeleteActive = entity.getClass().isAnnotationPresent(SoftDeleteActive.class); 
+			if (isSoftDeleteActive) {
 				
-				// logical delete on parent object
+				// soft delete on parent object
 				entity.setDateDelete(Calendar.getInstance().getTime());
 				entity.setUserDelete(persistenceAuditorAware.getCurrentAuditor());
 				em.merge(entity);
 
-				//look for child objects on which apply logical delete
+				//look for child objects on which apply soft delete
 				for (Method m : entity.getClass().getMethods()) {
 					boolean isAtLeastOneChildPresent = m.isAnnotationPresent(OneToMany.class) || 
 															m.isAnnotationPresent(ManyToMany.class);
@@ -67,6 +67,8 @@ public class DeleteEntityOperation<EntityObjectType extends BaseEntity> extends 
 				}
 				
 			} else {
+				
+				// hard delete
 				em.remove(entity);
 			}
 		} catch (Exception e) {
