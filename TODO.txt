@@ -1,6 +1,8 @@
 Short term TODOs:
 
+- add logging using spring aop and method's profiling but only at domain level
 
+- implement paginator using query criteria
 
 Long term TODOs: 
 
@@ -10,23 +12,7 @@ Long term TODOs:
 	We want to get a pure JPA architecture done but not coupled with a specific provider. 
 	Soft deleting should be a feature added in next Spring Data JPA releases.
 
-
-
-
-
-- use 2nd level cache
-
-- when you create and entity, the auditing data in all the child ones is missing - SaveEntityOperation.beforeSave should be called on child entity too
-  to find out: 1. integrate spring security with user details accessible from anywhere in the code
-               2. think about what is the best option between envers or hibernate interceptors
-			   3. probably you'll use the interceptor to write auditing data
-- tidy up EntityConverter.java
-- add logging using spring aop and method's profiling
-- write test unit
-- add paginator
-- read best-practices-orm.pdf, NB: the interceptors could be use to write auditing data (date_insert, user, etc)
-- ILogicDeleteDTO and ILogicDelete are not so readable. Find out another solution.
-
+- let the using of 2nd level cache possible
 
 
 docs:
