@@ -2,13 +2,11 @@ Short term TODOs:
 
 - add logging using spring aop and method's profiling but only at domain level
 
-- implement paginator using query criteria
-
 Long term TODOs: 
 
 - SOFT DELETION implementation's considerations: 
 
-	Entity soft deletion has been implemented using the @Where annotation provided by Hibernate but this isn't the best solution.
+	Entity soft deletion has been implemented using the @Where annotation provided by Hibernate although this isn't the best solution.
 	We want to get a pure JPA architecture done but not coupled with a specific provider. 
 	Soft deleting should be a feature added in next Spring Data JPA releases.
 

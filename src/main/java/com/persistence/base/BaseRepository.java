@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.persistence.annotation.SoftDeleteActive;
 import com.persistence.operation.IDeleteEntityOperation;
 import com.persistence.operation.IGetEntityOperation;
 import com.persistence.operation.IInsertEntityOperation;
