@@ -60,7 +60,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		return getEntityOperation.getEntityManager().getCriteriaBuilder();
 	}
 	
-	protected List<EntityObjectType> executePaginationQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root, int pageNumber, int pageSize) {
+	protected List<EntityObjectType> executePaginationQuery(CriteriaQuery<EntityObjectType> criteriaQuery, int pageNumber, int pageSize) {
 		TypedQuery<EntityObjectType> typedQuery = getEntityOperation.getEntityManager().createQuery(criteriaQuery);
 	    typedQuery.setFirstResult(pageNumber - 1);
 	    typedQuery.setMaxResults(pageSize);
@@ -68,7 +68,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		return typedQuery.getResultList();
 	}
 	
-	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
+	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery) {
 		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
 	}	
 		
@@ -78,7 +78,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		Root<EntityObjectType> root = criteriaQuery.from(entityObjectTypeClass);		
 		criteriaQuery = criteriaQuery.select(root);
 		
-		List<EntityObjectType> entityList = executeQuery(criteriaQuery, root);
+		List<EntityObjectType> entityList = executeQuery(criteriaQuery);
 		List<DomainObjectType> domainList = entityList.stream().map(t -> convert(t)).collect(Collectors.toList());
 		
 		return domainList;
@@ -90,7 +90,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		Root<EntityObjectType> root = criteriaQuery.from(entityObjectTypeClass);		
 		criteriaQuery = criteriaQuery.select(root);
 			    
-		List<EntityObjectType> entityList = executePaginationQuery(criteriaQuery, root, pageNumber, pageSize);
+		List<EntityObjectType> entityList = executePaginationQuery(criteriaQuery, pageNumber, pageSize);
 		List<DomainObjectType> domainList = entityList.stream().map(t -> convert(t)).collect(Collectors.toList());
 		
 		return domainList;
@@ -107,12 +107,12 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		
 	public DomainObjectType get(Object id, String idFieldName) {
 		
-		CriteriaQuery<EntityObjectType> q = getCriteriaBuilder().createQuery(entityObjectTypeClass);
-		Root<EntityObjectType> c = q.from(entityObjectTypeClass);		
-		q.select(c);
+		CriteriaQuery<EntityObjectType> criteriaQuery = getCriteriaBuilder().createQuery(entityObjectTypeClass);
+		Root<EntityObjectType> root = criteriaQuery.from(entityObjectTypeClass);		
+		criteriaQuery.select(root);
 		
-		q = q.where(getCriteriaBuilder().equal(c.get(idFieldName), id));
-		List<EntityObjectType> entityList = executeQuery(q, c);
+		criteriaQuery = criteriaQuery.where(getCriteriaBuilder().equal(root.get(idFieldName), id));
+		List<EntityObjectType> entityList = executeQuery(criteriaQuery);
 		if (entityList.size() > 1) {
 			throw new RuntimeException("More than one row selected");
 		}
