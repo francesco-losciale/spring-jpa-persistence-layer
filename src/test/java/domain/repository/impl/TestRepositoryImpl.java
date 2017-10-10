@@ -7,16 +7,16 @@ import com.persistence.base.BaseRepository;
 
 import domain.model.Test;
 import domain.model.impl.MapperHelper;
-import domain.repository.ITestRepository;
+import domain.repository.TestRepository;
 import persistence.entity.TestEntity;
 
 @Repository
-class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
+class TestRepositoryImpl extends BaseRepository<Test, TestEntity> implements TestRepository {
 	
 	@Autowired
 	MapperHelper mapperHelper;
 	
-	public TestRepository() {
+	public TestRepositoryImpl() {
 		super(TestEntity.class);
 	}
 

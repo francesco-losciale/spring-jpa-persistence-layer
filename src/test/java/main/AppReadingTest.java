@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.repository.ITestCollectionRepository;
-import domain.repository.ITestRepository;
+import domain.repository.TestCollectionRepository;
+import domain.repository.TestRepository;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -29,10 +29,10 @@ import junit.framework.TestSuite;
 public class AppReadingTest extends TestCase {
 			
 	@Autowired
-	private ITestCollectionRepository testCollectionRepository;
+	private TestCollectionRepository testCollectionRepository;
 	
 	@Autowired
-	private ITestRepository testRepository;
+	private TestRepository testRepository;
 	
 	
 	/**

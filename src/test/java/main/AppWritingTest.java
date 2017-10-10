@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import domain.model.DomainModelFactory;
 import domain.model.TestCollection;
-import domain.repository.ITestCollectionRepository;
-import domain.repository.ITestRepository;
+import domain.repository.TestCollectionRepository;
+import domain.repository.TestRepository;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -32,10 +32,10 @@ public class AppWritingTest extends TestCase {
 	private DomainModelFactory modelFactory;
 	
 	@Autowired
-	private ITestCollectionRepository testCollectionRepository;
+	private TestCollectionRepository testCollectionRepository;
 	
 	@Autowired
-	private ITestRepository testRepository;
+	private TestRepository testRepository;
 	
 	
 	/**

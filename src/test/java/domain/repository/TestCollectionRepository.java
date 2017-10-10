@@ -8,7 +8,7 @@ import domain.model.TestCollection;
 import persistence.entity.TestCollectionEntity;
 
 
-public interface ITestCollectionRepository extends IBaseRepository<TestCollection, TestCollectionEntity>{
+public interface TestCollectionRepository extends IBaseRepository<TestCollection, TestCollectionEntity>{
 
 	public List<TestCollection> getAll();
 }
