@@ -2,7 +2,6 @@ package main;
 
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,8 +26,8 @@ import main.domain.repository.ITestRepository;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfig.class })
-public class AppTest2 extends TestCase {
+@ContextConfiguration(classes = { AppConfigWriting.class })
+public class AppWritingTest extends TestCase {
 			
 	@Autowired
 	private ITestCollectionRepository testCollectionRepository;
@@ -43,7 +42,7 @@ public class AppTest2 extends TestCase {
 	 * @param testName
 	 *            name of the test case
 	 */
-	public AppTest2() {
+	public AppWritingTest() {
 
         User user = new User("flosciale", "flosciale", Arrays.asList(new SimpleGrantedAuthority("ROLE_TEST2")));
         Authentication auth = new TestingAuthenticationToken(user, "password", "ROLE_TEST2");
@@ -55,9 +54,11 @@ public class AppTest2 extends TestCase {
 	 * @return the suite of tests being tested
 	 */
 	public static TestSuite suite() {
-		return new TestSuite(AppTest2.class);
+		return new TestSuite(AppWritingTest.class);
 	}
 		
+	@Test
+	@Rollback(false)
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void testPopulate() {
 		
@@ -84,44 +85,7 @@ public class AppTest2 extends TestCase {
 			}
 		}		
 		
-		// TODO check DATE_DELETE
-		
-		// commit ...		
-		
 	}
 	
-	@Test
-	@Transactional(propagation = Propagation.REQUIRED)
-	@Rollback(false)
-	public void testRead() {
-		
-		//testPopulate();
-				
-		TestCollection testCollection = testCollectionRepository.get(1L, "id");
-		assertTrue(testCollection != null);
-		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
-			
-		List<TestCollection> listTestCollection = testCollectionRepository.getAll();
-		testCollection = listTestCollection.get(0);
-		assertTrue(testCollection != null);
-		assertTrue(testCollection.getListTest() != null && testCollection.getListTest().size() == 2);
-		
-		main.domain.object.Test test = testRepository.get(1L, "id");
-		assertTrue(test != null);
-		assertTrue(test.getTestCollection() != null && test.getTestCollection().getListTest().size() == 2);
-		
-		List<main.domain.object.Test> testList = testRepository.getAll();
-		assertTrue(testList != null && testList.size() == 1);
-		
-		
-		testCollection = testCollectionRepository.get(1L, "id");
-		
-		// TODO when you load the collection from db, in listTest there should be only one entity (not the one with date_delete not null)
-		
-		// then remove the parent object				
-		//testCollectionRepository.remove(testCollection);
-					
-
-	}	
 	
 }

@@ -7,7 +7,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.persistence.annotation.SoftDeleteActive;
@@ -63,7 +62,7 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 	
 	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
 		if (entityObjectTypeClass.isAnnotationPresent(SoftDeleteActive.class)) {
-			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete")));
+			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete"))); // TODO try to make reusable this field
 		}		
 		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
 	}

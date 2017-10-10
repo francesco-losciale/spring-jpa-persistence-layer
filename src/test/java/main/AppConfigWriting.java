@@ -25,7 +25,7 @@ import persistence.auditing.PersistenceAuditorAware;
 @EnableJpaAuditing(auditorAwareRef="jpaAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
 @ComponentScan(basePackages = {"persistence.repository","com.persistence.base","com.persistence.operation"})
-public class AppConfig extends GlobalMethodSecurityConfiguration {
+public class AppConfigWriting extends GlobalMethodSecurityConfiguration {
 		
 	@Bean
 	public BasicDataSource dataSource() {
@@ -63,7 +63,7 @@ public class AppConfig extends GlobalMethodSecurityConfiguration {
 	
 	private Map<String, ?> hibernateJpaProperties() {
 		HashMap<String, String> properties = new HashMap<>();
-		properties.put("hibernate.hbm2ddl.auto", "update"/*"create"*/); 
+		properties.put("hibernate.hbm2ddl.auto", "create"); 
 		properties.put("hibernate.default_schema", "PUBLIC");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		//properties.put("hibernate.show_sql", "false");
