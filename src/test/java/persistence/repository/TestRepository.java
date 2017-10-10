@@ -5,7 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.persistence.base.BaseRepository;
 
-import main.domain.object.Test;
+import main.domain.model.Test;
+import main.domain.model.impl.MapperHelper;
 import main.domain.repository.ITestRepository;
 import persistence.entity.TestEntity;
 
@@ -13,7 +14,7 @@ import persistence.entity.TestEntity;
 public class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
 	
 	@Autowired
-	DomainMapperHelper mapperHelper;
+	MapperHelper mapperHelper;
 	
 	public TestRepository() {
 		super(TestEntity.class);

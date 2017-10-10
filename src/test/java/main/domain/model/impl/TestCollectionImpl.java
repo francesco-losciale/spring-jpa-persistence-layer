@@ -1,4 +1,4 @@
-package main.domain.object;
+package main.domain.model.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,7 +7,10 @@ import java.util.Set;
 
 import com.persistence.base.BaseDomain;
 
-public class TestCollection extends BaseDomain {
+import main.domain.model.Test;
+import main.domain.model.TestCollection;
+
+class TestCollectionImpl extends BaseDomain implements TestCollection {
 	
 	private Long id;
 	private String releaseName;
@@ -29,15 +32,15 @@ public class TestCollection extends BaseDomain {
 		if (listTest == null) {
 			return new ArrayList<Test>();
 		}
-		return /*Arrays.asList*/ new ArrayList<Test>(this.listTest/*.toArray(new Test[this.listTest.size()])*/);
+		return new ArrayList<Test>(this.listTest);
 	}
-	public void addListTest(Test test) {
+	public void addListTest(TestImpl test) {
 		if (this.listTest == null) {
 			this.listTest = new HashSet<Test>();
 		}
 		this.listTest.add(test);
 	}
-	public void removeListTest(Test test) {
+	public void removeListTest(TestImpl test) {
 		if (this.listTest != null) {
 			this.listTest.remove(test);
 		}

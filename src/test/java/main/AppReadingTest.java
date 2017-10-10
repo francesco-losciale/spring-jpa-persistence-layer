@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.domain.object.TestCollection;
 import main.domain.repository.ITestCollectionRepository;
 import main.domain.repository.ITestRepository;
 
@@ -61,20 +60,20 @@ public class AppReadingTest extends TestCase {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void testRead() {
 									
-		List<TestCollection> listTestCollection = testCollectionRepository.getAll();
+		List<main.domain.model.TestCollection> listTestCollection = testCollectionRepository.getAll();
 		
 		assertTrue("no data found to run test",listTestCollection.size() > 0);
 		
-		for (TestCollection testCollection : listTestCollection) {
+		for (main.domain.model.TestCollection testCollection : listTestCollection) {
 			
 			assertTrue(testCollection != null);
 			assertTrue(testCollection.getListTest() != null);
 			
 			// test soft delete management (ie. we are not selecting deleted records)
-			for (main.domain.object.Test t : testCollection.getListTest()) {
+			for (main.domain.model.Test t : testCollection.getListTest()) {
 				assertTrue(t.getDateDelete() == null && t.getUserDelete() == null);
 				
-				main.domain.object.Test t2 = testRepository.get(t.getId(), "id");
+				main.domain.model.Test t2 = testRepository.get(t.getId(), "id");
 				assertTrue(t2.getDateDelete() == null && t2.getUserDelete() == null);
 			}
 					

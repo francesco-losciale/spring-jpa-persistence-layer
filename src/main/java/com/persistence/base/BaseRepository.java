@@ -15,7 +15,7 @@ import com.persistence.operation.IGetEntityOperation;
 import com.persistence.operation.IInsertEntityOperation;
 import com.persistence.operation.IUpdateEntityOperation;
 
-public abstract class BaseRepository<DomainObjectType extends BaseDomain, EntityObjectType extends BaseEntity> implements IBaseRepository<DomainObjectType , EntityObjectType> {
+public abstract class BaseRepository<DomainObjectType, EntityObjectType extends BaseEntity> implements IBaseRepository<DomainObjectType , EntityObjectType> {
 
 	private Class<EntityObjectType> entityObjectTypeClass;
 	

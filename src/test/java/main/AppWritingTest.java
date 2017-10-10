@@ -19,16 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.domain.object.TestCollection;
+import main.domain.model.DomainModelFactory;
+import main.domain.model.TestCollection;
 import main.domain.repository.ITestCollectionRepository;
 import main.domain.repository.ITestRepository;
-
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfigWriting.class })
 public class AppWritingTest extends TestCase {
 			
+	@Autowired 
+	private DomainModelFactory modelFactory;
+	
 	@Autowired
 	private ITestCollectionRepository testCollectionRepository;
 	
@@ -66,24 +68,18 @@ public class AppWritingTest extends TestCase {
 		while (count <= 20) 
 		{
 			
-			TestCollection testCollection = new TestCollection();
-			testCollection.setReleaseName("new_release_name_" + count);
+			TestCollection testCollection = modelFactory.createTestCollection("new_release_name_" + count);
 			testCollection = testCollectionRepository.add(testCollection);
 			
-			main.domain.object.Test test = new main.domain.object.Test(); // entity 1
-			test.setTestCollection(testCollection);
-			testCollection.addListTest(test);
-				
-			main.domain.object.Test test2 = new main.domain.object.Test(); // entity 2
-			test2.setTestCollection(testCollection);
-			testCollection.addListTest(test2);
+			modelFactory.createTest(testCollection); // entity 1		
+			modelFactory.createTest(testCollection); // entity 2
 					
 			testCollection = testCollectionRepository.set(testCollection);
 			testCollection = testCollectionRepository.get(count, "id");
 			assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
 				
 			int i = 0;
-			for (main.domain.object.Test t : testCollection.getListTest()) {
+			for (main.domain.model.Test t : testCollection.getListTest()) {
 				if (i++ % 2 == 0) {
 					testRepository.remove(t);
 				}

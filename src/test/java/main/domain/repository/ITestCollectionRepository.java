@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.persistence.base.IBaseRepository;
 
-import main.domain.object.TestCollection;
+import main.domain.model.TestCollection;
 import persistence.entity.TestCollectionEntity;
 
 
