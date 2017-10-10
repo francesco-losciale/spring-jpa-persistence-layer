@@ -62,29 +62,35 @@ public class AppWritingTest extends TestCase {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void testPopulate() {
 		
-		TestCollection testCollection = new TestCollection();
-		testCollection.setReleaseName("new_release_name");
-		testCollection = testCollectionRepository.add(testCollection);
-		
-		main.domain.object.Test test = new main.domain.object.Test(); // entity 1
-		test.setTestCollection(testCollection);
-		testCollection.addListTest(test);
+		int count = 1;		
+		while (count <= 20) 
+		{
 			
-		main.domain.object.Test test2 = new main.domain.object.Test(); // entity 2
-		test2.setTestCollection(testCollection);
-		testCollection.addListTest(test2);
+			TestCollection testCollection = new TestCollection();
+			testCollection.setReleaseName("new_release_name_" + count);
+			testCollection = testCollectionRepository.add(testCollection);
+			
+			main.domain.object.Test test = new main.domain.object.Test(); // entity 1
+			test.setTestCollection(testCollection);
+			testCollection.addListTest(test);
 				
-		testCollection = testCollectionRepository.set(testCollection);
-		testCollection = testCollectionRepository.get(1L, "id");
-		assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
+			main.domain.object.Test test2 = new main.domain.object.Test(); // entity 2
+			test2.setTestCollection(testCollection);
+			testCollection.addListTest(test2);
+					
+			testCollection = testCollectionRepository.set(testCollection);
+			testCollection = testCollectionRepository.get(count, "id");
+			assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
+				
+			int i = 0;
+			for (main.domain.object.Test t : testCollection.getListTest()) {
+				if (i++ % 2 == 0) {
+					testRepository.remove(t);
+				}
+			}		
 			
-		int i = 0;
-		for (main.domain.object.Test t : testCollection.getListTest()) {
-			if (i++ % 2 == 0) {
-				testRepository.remove(t);
-			}
-		}		
-		
+			count++;
+		}
 	}
 	
 	

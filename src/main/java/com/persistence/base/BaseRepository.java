@@ -3,6 +3,7 @@ package com.persistence.base;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -60,23 +61,49 @@ public abstract class BaseRepository<DomainObjectType extends BaseDomain, Entity
 		return getEntityOperation.getEntityManager().getCriteriaBuilder();
 	}
 	
-	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
-		if (entityObjectTypeClass.isAnnotationPresent(SoftDeleteActive.class)) {
-			criteriaQuery = criteriaQuery.where(getCriteriaBuilder().isNull(root.get("dateDelete"))); // TODO try to make reusable this field
-		}		
-		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
+	protected List<EntityObjectType> executePaginationQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root, int pageNumber, int pageSize) {
+		TypedQuery<EntityObjectType> typedQuery = getEntityOperation.getEntityManager().createQuery(criteriaQuery);
+	    typedQuery.setFirstResult(pageNumber - 1);
+	    typedQuery.setMaxResults(pageSize);
+	    
+		return typedQuery.getResultList();
 	}
 	
+	protected List<EntityObjectType> executeQuery(CriteriaQuery<EntityObjectType> criteriaQuery, Root<EntityObjectType> root) {
+		return getEntityOperation.getEntityManager().createQuery(criteriaQuery).getResultList();
+	}	
+		
 	public List<DomainObjectType> getAll() {
 		
-		CriteriaQuery<EntityObjectType> q = getCriteriaBuilder().createQuery(entityObjectTypeClass);
-		Root<EntityObjectType> c = q.from(entityObjectTypeClass);		
-		q.select(c);
+		CriteriaQuery<EntityObjectType> criteriaQuery = getCriteriaBuilder().createQuery(entityObjectTypeClass);
+		Root<EntityObjectType> root = criteriaQuery.from(entityObjectTypeClass);		
+		criteriaQuery = criteriaQuery.select(root);
 		
-		List<EntityObjectType> entityList = executeQuery(q, c);
+		List<EntityObjectType> entityList = executeQuery(criteriaQuery, root);
 		List<DomainObjectType> domainList = entityList.stream().map(t -> convert(t)).collect(Collectors.toList());
 		
 		return domainList;
+	}
+	
+	public List<DomainObjectType> getPage(int pageNumber, int pageSize) {
+		
+		CriteriaQuery<EntityObjectType> criteriaQuery = getCriteriaBuilder().createQuery(entityObjectTypeClass);
+		Root<EntityObjectType> root = criteriaQuery.from(entityObjectTypeClass);		
+		criteriaQuery = criteriaQuery.select(root);
+			    
+		List<EntityObjectType> entityList = executePaginationQuery(criteriaQuery, root, pageNumber, pageSize);
+		List<DomainObjectType> domainList = entityList.stream().map(t -> convert(t)).collect(Collectors.toList());
+		
+		return domainList;
+	}
+	
+	public long count() {
+		
+		CriteriaQuery<Long> countQuery = getCriteriaBuilder().createQuery(Long.class);
+		countQuery.select(getCriteriaBuilder().count(countQuery.from(entityObjectTypeClass)));
+		Long count = getEntityOperation.getEntityManager().createQuery(countQuery).getSingleResult();
+		
+		return count;
 	}
 		
 	public DomainObjectType get(Object id, String idFieldName) {

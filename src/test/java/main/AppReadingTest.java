@@ -78,7 +78,14 @@ public class AppReadingTest extends TestCase {
 				assertTrue(t2.getDateDelete() == null && t2.getUserDelete() == null);
 			}
 					
-		}					
+		}			
+		long totalCount = testCollectionRepository.count();
+		long counter = 0;
+		for (int page = 1; page <= totalCount / 10; page++) {
+			listTestCollection = testCollectionRepository.getPage(page, 10);
+			counter += listTestCollection.size();			
+		}
+		assertTrue(totalCount == counter);
 
 	}	
 	
