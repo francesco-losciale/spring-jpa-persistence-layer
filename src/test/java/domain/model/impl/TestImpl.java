@@ -1,8 +1,8 @@
-package main.domain.model.impl;
+package domain.model.impl;
 
 import com.persistence.base.BaseDomain;
 
-import main.domain.model.Test;
+import domain.model.Test;
 
 class TestImpl extends BaseDomain implements Test {
 	

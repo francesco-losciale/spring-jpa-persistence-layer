@@ -1,17 +1,17 @@
-package persistence.repository;
+package domain.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.persistence.base.BaseRepository;
 
-import main.domain.model.Test;
-import main.domain.model.impl.MapperHelper;
-import main.domain.repository.ITestRepository;
+import domain.model.Test;
+import domain.model.impl.MapperHelper;
+import domain.repository.ITestRepository;
 import persistence.entity.TestEntity;
 
 @Repository
-public class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
+class TestRepository extends BaseRepository<Test, TestEntity> implements ITestRepository {
 	
 	@Autowired
 	MapperHelper mapperHelper;

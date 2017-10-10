@@ -17,10 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.repository.ITestCollectionRepository;
+import domain.repository.ITestRepository;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.domain.repository.ITestCollectionRepository;
-import main.domain.repository.ITestRepository;
 
 
 
@@ -60,20 +60,20 @@ public class AppReadingTest extends TestCase {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void testRead() {
 									
-		List<main.domain.model.TestCollection> listTestCollection = testCollectionRepository.getAll();
+		List<domain.model.TestCollection> listTestCollection = testCollectionRepository.getAll();
 		
 		assertTrue("no data found to run test",listTestCollection.size() > 0);
 		
-		for (main.domain.model.TestCollection testCollection : listTestCollection) {
+		for (domain.model.TestCollection testCollection : listTestCollection) {
 			
 			assertTrue(testCollection != null);
 			assertTrue(testCollection.getListTest() != null);
 			
 			// test soft delete management (ie. we are not selecting deleted records)
-			for (main.domain.model.Test t : testCollection.getListTest()) {
+			for (domain.model.Test t : testCollection.getListTest()) {
 				assertTrue(t.getDateDelete() == null && t.getUserDelete() == null);
 				
-				main.domain.model.Test t2 = testRepository.get(t.getId(), "id");
+				domain.model.Test t2 = testRepository.get(t.getId(), "id");
 				assertTrue(t2.getDateDelete() == null && t2.getUserDelete() == null);
 			}
 					

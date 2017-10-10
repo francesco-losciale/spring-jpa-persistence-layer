@@ -1,4 +1,4 @@
-package main.domain.model.impl;
+package domain.model.impl;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Component;
 
-import main.domain.model.Test;
-import main.domain.model.TestCollection;
+import domain.model.Test;
+import domain.model.TestCollection;
 import persistence.entity.TestCollectionEntity;
 import persistence.entity.TestEntity;
 

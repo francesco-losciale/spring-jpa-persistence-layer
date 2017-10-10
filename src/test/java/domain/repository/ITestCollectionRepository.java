@@ -1,10 +1,10 @@
-package main.domain.repository;
+package domain.repository;
 
 import java.util.List;
 
 import com.persistence.base.IBaseRepository;
 
-import main.domain.model.TestCollection;
+import domain.model.TestCollection;
 import persistence.entity.TestCollectionEntity;
 
 

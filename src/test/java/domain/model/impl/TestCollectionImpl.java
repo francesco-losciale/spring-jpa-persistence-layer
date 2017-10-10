@@ -1,4 +1,4 @@
-package main.domain.model.impl;
+package domain.model.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,8 +7,8 @@ import java.util.Set;
 
 import com.persistence.base.BaseDomain;
 
-import main.domain.model.Test;
-import main.domain.model.TestCollection;
+import domain.model.Test;
+import domain.model.TestCollection;
 
 class TestCollectionImpl extends BaseDomain implements TestCollection {
 	

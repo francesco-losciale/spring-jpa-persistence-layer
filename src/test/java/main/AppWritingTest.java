@@ -17,12 +17,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.model.DomainModelFactory;
+import domain.model.TestCollection;
+import domain.repository.ITestCollectionRepository;
+import domain.repository.ITestRepository;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import main.domain.model.DomainModelFactory;
-import main.domain.model.TestCollection;
-import main.domain.repository.ITestCollectionRepository;
-import main.domain.repository.ITestRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { AppConfigWriting.class })
@@ -79,7 +79,7 @@ public class AppWritingTest extends TestCase {
 			assertTrue(testCollection != null && testCollection.getListTest().size() == 2);
 				
 			int i = 0;
-			for (main.domain.model.Test t : testCollection.getListTest()) {
+			for (domain.model.Test t : testCollection.getListTest()) {
 				if (i++ % 2 == 0) {
 					testRepository.remove(t);
 				}
