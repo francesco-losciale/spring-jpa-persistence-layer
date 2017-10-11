@@ -1,20 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>manager</groupId>
   <artifactId>manager</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>manager</name>
   <url>http://maven.apache.org</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>4.3.6.RELEASE</spring.version>
-  </properties>
-    
+  </properties>    
   <build> 
 	  <plugins>
 	       <plugin>
@@ -26,8 +22,7 @@
 	           </configuration>
 	       </plugin>
 	   </plugins>
-  </build>
-  
+  </build>  
   <dependencies>
 	<dependency>
 	  <groupId>org.modelmapper</groupId>
@@ -65,22 +60,10 @@
 	    <version>4.3.11.RELEASE</version>
 	    <scope>compile</scope>
 	</dependency>	
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-orm</artifactId>
-        <version>${spring.version}</version>
-        <scope>compile</scope>
-    </dependency>	
 	<dependency>
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-validator</artifactId>
 		<version>5.3.4.Final</version>
-		<scope>compile</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.hibernate</groupId>
-		<artifactId>hibernate-core</artifactId>
-		<version>5.2.6.Final</version>
 		<scope>compile</scope>
 	</dependency>
 	<dependency>
