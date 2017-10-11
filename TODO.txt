@@ -16,5 +16,4 @@ Long term TODOs:
 	We want to get a pure JPA architecture done but not coupled with a specific provider. 
 	Soft deleting should be a feature added in next Spring Data JPA releases.
 
-- let the using of 2nd level cache possible
 
