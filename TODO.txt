@@ -2,6 +2,12 @@ Short term TODOs:
 
 - add logging using spring aop and method's profiling but only at domain level
 
+
+
+
+
+
+
 Long term TODOs: 
 
 - SOFT DELETION implementation's considerations: 
@@ -12,9 +18,3 @@ Long term TODOs:
 
 - let the using of 2nd level cache possible
 
-
-docs:
-
-https://thinkinginobjects.com/2012/08/26/dont-use-dao-use-repository/
-best-practices-orm.pdf
-schema-persistence.pdf
