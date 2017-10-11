@@ -1,11 +1,22 @@
 package domain.model;
 
-import com.persistence.base.IBaseDomain;
+import com.persistence.base.BaseDomain;
 
-//TODO this interface is extended only for test purpose, but here you should only
-// place method's name that represent domain model logic
-public interface Test extends IBaseDomain {
-
-	public Long getId();
-    public TestCollection getTestCollection();
+public class Test extends BaseDomain {
+	
+	private Long id;
+	private TestCollection testCollection;
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public TestCollection getTestCollection() {
+		return testCollection;
+	}
+	public void setTestCollection(TestCollection testCollection) {
+		this.testCollection = testCollection;
+	}		
 }

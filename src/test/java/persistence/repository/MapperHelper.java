@@ -1,4 +1,4 @@
-package domain.model.impl;
+package persistence.repository;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -23,9 +23,9 @@ public class MapperHelper {
 		return testEntity;
 	}
 	
-	public TestImpl convertToTest(TestEntity testEntity) {
-		TestImpl TestImpl = modelMapper.map(testEntity, TestImpl.class);
-		((TestImpl)TestImpl).setTestCollection((TestCollectionImpl)convertToTestCollection(testEntity.getTestCollection()));
+	public Test convertToTest(TestEntity testEntity) {
+		Test TestImpl = modelMapper.map(testEntity, Test.class);
+		((Test)TestImpl).setTestCollection((TestCollection)convertToTestCollection(testEntity.getTestCollection()));
 		return TestImpl;
 	}
 	
@@ -37,12 +37,12 @@ public class MapperHelper {
 		return dest;
 	}
 	
-	public TestCollectionImpl convertToTestCollection(TestCollectionEntity testCollectionEntity) {
-		Type destinationListType = new TypeToken<Set<TestImpl>>() {}.getType();
-		Set<TestImpl> listTest = modelMapper.map(testCollectionEntity.getListTest(), destinationListType);
-		TestCollectionImpl dest = modelMapper.map(testCollectionEntity, TestCollectionImpl.class);
-		for (TestImpl TestImpl : listTest) {
-			((TestCollectionImpl)dest).addListTest((TestImpl)TestImpl);
+	public TestCollection convertToTestCollection(TestCollectionEntity testCollectionEntity) {
+		Type destinationListType = new TypeToken<Set<Test>>() {}.getType();
+		Set<Test> listTest = modelMapper.map(testCollectionEntity.getListTest(), destinationListType);
+		TestCollection dest = modelMapper.map(testCollectionEntity, TestCollection.class);
+		for (Test TestImpl : listTest) {
+			((TestCollection)dest).addListTest((Test)TestImpl);
 		}
 		return dest;
 	}

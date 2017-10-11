@@ -1,23 +1,23 @@
-package domain.model.impl;
+package domain.util;
 
 import org.springframework.stereotype.Service;
 
-import domain.model.DomainModelFactory;
 import domain.model.Test;
 import domain.model.TestCollection;
+import domain.util.DomainModelFactory;
 
 @Service // TODO is it correct?
-public class DomainModelFactoryImpl implements DomainModelFactory {
+public class DomainModelFactory {
 
 	public Test createTest(TestCollection testCollection) {
-		TestImpl obj = new TestImpl();
-		obj.setTestCollection((TestCollectionImpl)testCollection);
-		((TestCollectionImpl)testCollection).addListTest(obj);
+		Test obj = new Test();
+		obj.setTestCollection((TestCollection)testCollection);
+		((TestCollection)testCollection).addListTest(obj);
 		return obj;
 	}
 	
 	public TestCollection createTestCollection(String releaseName) {
-		TestCollectionImpl obj = new TestCollectionImpl();
+		TestCollection obj = new TestCollection();
 		obj.setReleaseName(releaseName);
 		return obj;		
 	}

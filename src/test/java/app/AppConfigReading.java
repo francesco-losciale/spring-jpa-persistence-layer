@@ -1,4 +1,4 @@
-package main;
+package app;
 
 
 import java.util.HashMap;
@@ -24,7 +24,7 @@ import persistence.auditing.PersistenceAuditorAware;
 @Configuration
 @EnableJpaAuditing(auditorAwareRef="jpaAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
-@ComponentScan(basePackages = {"domain.model.impl","domain.repository.impl","com.persistence.base","com.persistence.operation"})
+@ComponentScan(basePackages = {"domain.util","persistence.repository","persistence.repository.impl","com.persistence.base","com.persistence.operation"})
 public class AppConfigReading extends GlobalMethodSecurityConfiguration {
 		
 	@Bean
