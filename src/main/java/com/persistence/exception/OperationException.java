@@ -22,11 +22,9 @@ public class OperationException extends GenericException {
 	public String getMessage() {
 
 		StringBuilder builder = new StringBuilder(super.getMessage());
-		builder.append(", operation input:");
-		builder.append(operationInput);
-		builder.append(", operation output:");
-		builder.append(operationOutput);
-
+		builder.append(", input:" + operationInput);
+		builder.append(", output:" + operationOutput);
+		
 		return builder.toString();
 	}
 }

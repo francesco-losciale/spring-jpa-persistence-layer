@@ -1,0 +1,1 @@
+https://www.developer.com/java/using-second-level-caching-in-a-jpa-application.html

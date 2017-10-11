@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Inherited
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SoftDeleteActive {
+public @interface SoftDeleteActive { // Please read TODO.txt to get any further indications 
 
 }

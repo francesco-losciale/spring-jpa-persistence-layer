@@ -15,7 +15,7 @@ public class GetEntityOperation<EntityObjectType> extends BasePersistenceProvide
 	 * If you are using Hibernate as the provider, it is possible that the object is "persisted" merely 
 	 * in cache and the changes have not actually been pushed to the database. Accordingly, the criteria 
 	 * going through Hibernate's implementation will retrieve the object, but the entity manager find will 
-	 * not be able to locate the object.
+	 * not be able to locate the object until the transactional commit is accomplished.
 	 */
 	@Override
 	public EntityObjectType get(Class<EntityObjectType> resultClass, Object id) throws OperationException {
