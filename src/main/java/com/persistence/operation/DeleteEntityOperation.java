@@ -39,7 +39,7 @@ public class DeleteEntityOperation<EntityObjectType extends BaseEntity> extends 
 				entity.setUserDelete(persistenceAuditorAware.getCurrentAuditor());
 				em.merge(entity);
 
-				//look for child objects on which apply soft delete
+				//look for child objects on which to apply soft delete
 				for (Method m : entity.getClass().getMethods()) {
 					boolean isAtLeastOneChildPresent = m.isAnnotationPresent(OneToMany.class) || 
 															m.isAnnotationPresent(ManyToMany.class);

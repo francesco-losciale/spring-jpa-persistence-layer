@@ -12,9 +12,11 @@ Long term TODOs:
 
 - SOFT DELETION implementation's considerations: 
 
-	Entity soft deletion has been implemented using the @Where annotation provided by Hibernate although this isn't the best solution.
-	We want to get a pure JPA architecture done but not coupled with a specific provider. 
-	Soft deleting should be a feature added in next Spring Data JPA releases.
+	Entity soft deletion has been implemented using the @Where annotation provided by Hibernate 
+	although this isn't the best solution.
+	We want to get a pure JPA architecture not coupled with a specific provider. 
+	Soft deletion should be a new feature of next Spring Data JPA releases so we could rely on them
+	in the near future.
 
 
 

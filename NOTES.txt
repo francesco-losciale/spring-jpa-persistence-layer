@@ -2,4 +2,4 @@
 mvn clean install -X -Dmaven.test.skip=true
 
 # command for maven purge, re-resolve and install (removes project dependencies from local repository and download them again)  
-clean install -X -Dmaven.test.skip=true dependency:purge-local-repository -DreResolve=true
+mvn clean install -X -Dmaven.test.skip=true dependency:purge-local-repository -DreResolve=true
