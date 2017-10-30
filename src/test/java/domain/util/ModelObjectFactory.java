@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import domain.model.Test;
 import domain.model.TestCollection;
-import domain.util.DomainModelFactory;
+import domain.util.ModelObjectFactory;
 
 @Service // TODO is it correct?
-public class DomainModelFactory {
+public class ModelObjectFactory {
 
 	public Test createTest(TestCollection testCollection) {
 		Test obj = new Test();
