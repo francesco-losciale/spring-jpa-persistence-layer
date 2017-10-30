@@ -1,12 +1,11 @@
-package domain.util;
+package domain.component;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import domain.model.Test;
 import domain.model.TestCollection;
-import domain.util.ModelObjectFactory;
 
-@Service // TODO is it correct?
+@Component
 public class ModelObjectFactory {
 
 	public Test createTest(TestCollection testCollection) {

@@ -17,8 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import domain.component.ModelObjectFactory;
 import domain.model.TestCollection;
-import domain.util.ModelObjectFactory;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import persistence.repository.TestCollectionRepository;
