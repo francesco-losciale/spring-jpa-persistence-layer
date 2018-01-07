@@ -24,7 +24,7 @@ import persistence.auditing.PersistenceAuditorAware;
 @Configuration
 @EnableJpaAuditing(auditorAwareRef="jpaAuditorAware")
 @EnableGlobalMethodSecurity(securedEnabled=true)
-@ComponentScan(basePackages = {"domain.util","persistence.repository","persistence.repository.impl","com.persistence.base","com.persistence.operation"})
+@ComponentScan(basePackages = {"domain.util","domain.support","persistence.repository","persistence.repository.impl","com.persistence.base","com.persistence.operation"})
 public class AppConfigWriting extends GlobalMethodSecurityConfiguration {
 		
 	@Bean
