@@ -44,7 +44,7 @@ public class AppConfigWriting extends GlobalMethodSecurityConfiguration {
 		entityManagerFactory.setDataSource(dataSource);
 		entityManagerFactory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		entityManagerFactory.setJpaDialect(new HibernateJpaDialect());
-		entityManagerFactory.setPackagesToScan("persistence.repository","persistence.entity");
+		entityManagerFactory.setPackagesToScan("persistence.entity");
 		entityManagerFactory.setJpaPropertyMap(hibernateJpaProperties());
 		return entityManagerFactory;
 	}

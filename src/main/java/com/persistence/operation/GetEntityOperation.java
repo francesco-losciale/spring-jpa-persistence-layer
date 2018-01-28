@@ -2,12 +2,12 @@ package com.persistence.operation;
 
 import javax.persistence.EntityManager;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import com.persistence.base.BasePersistenceProvider;
 import com.persistence.exception.OperationException;
 
-@Repository
+@Component
 public class GetEntityOperation<EntityObjectType> extends BasePersistenceProvider implements IGetEntityOperation<EntityObjectType>  {
 
 	/**
