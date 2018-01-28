@@ -10,14 +10,14 @@ import javax.persistence.OneToMany;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import com.persistence.annotation.SoftDeleteActive;
 import com.persistence.base.BaseEntity;
 import com.persistence.base.BasePersistenceProvider;
 import com.persistence.exception.OperationException;
 
-@Repository
+@Component
 public class DeleteEntityOperation<EntityObjectType extends BaseEntity> extends BasePersistenceProvider implements IDeleteEntityOperation<EntityObjectType> {
 	
 	@Autowired
