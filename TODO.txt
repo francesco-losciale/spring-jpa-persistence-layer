@@ -1,8 +1,10 @@
 Short term TODOs:
 
-- add logging using spring aop and method's profiling but only at domain level
+1 - add logging using spring aop and method's profiling but only at domain level
 
+2 - the ID in entity class MUST be a Long instead of a long. find a way to strict the development to this rule
 
+3 - the hibernate annotations can create problems if set on the fields instead of the getters
 
 
 
