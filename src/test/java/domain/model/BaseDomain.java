@@ -1,7 +1,12 @@
-package com.persistence.base;
+package domain.model;
 
 import java.util.Date;
 
+/**
+ * Temporarily replicated here for test purposes
+ * 
+ * @author franc
+ */
 public class BaseDomain {
 
 	private Date dateInsert;

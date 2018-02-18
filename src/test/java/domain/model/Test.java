@@ -1,7 +1,5 @@
 package domain.model;
 
-import com.persistence.base.BaseDomain;
-
 public class Test extends BaseDomain {
 	
 	private Long id;

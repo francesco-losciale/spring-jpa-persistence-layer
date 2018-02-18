@@ -96,6 +96,9 @@ public abstract class BaseRepository<DomainObjectType, EntityObjectType extends 
 		if (entityList.size() > 1) {
 			throw new RuntimeException("More than one row selected");
 		}
+		if (entityList.size() == 0) {
+			throw new RuntimeException("No selectable record");
+		}
 		EntityObjectType entityObject = entityList.get(0);		
 		return convert(entityObject);
 	}

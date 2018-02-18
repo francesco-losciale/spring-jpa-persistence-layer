@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.persistence.base.BaseDomain;
-
 public class TestCollection extends BaseDomain {
 	
 	private Long id;
