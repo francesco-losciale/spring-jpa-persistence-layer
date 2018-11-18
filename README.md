@@ -1,4 +1,4 @@
-# Simple Repository pattern implementation using Spring JPA
+# Repository pattern implementation using Spring JPA
 
 Most important flaws:
 
