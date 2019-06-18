@@ -4,7 +4,7 @@ Most important flaws:
 
 1. Excessive use of Java Reflection
 2. Soft delete implementation using this version of Spring JPA was possible only thanks to Reflection and a workaround
-3. A bunch of Hibernate annotations needed to be used and are spread in the codebase mixing JPA and Hibernate... 
+3. Not a pure JPA layer. A bunch of Hibernate annotations necessarily mixed in the codebase.
 
 ### Prerequisites
 
